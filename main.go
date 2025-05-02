@@ -1,201 +1,188 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// Sekarang buat API dengan Database MongoDB
+
+// 1. Buat struct untuk data yang akan diambil, dsbnya di Database.
+type Todo struct {
+	ID			primitive.ObjectID		`json:"id,omitempty" bson:"_id,omitempty"` // tambahin `bson:"_id"` basically ini data format di MongoDB
+	Completed 	bool					`json:"completed"`
+	Body		string					`json:"body"`
+} // ID disini jadi primitive.ObjectID karena bawaan dari MongoDB-nya.
+// Tambahin juga omitempty agar ga jadi 000000...0000 (bawaan dari MongoDB)
+
+// 2. Buat collection untuk menghubungkan ke MongoDB
+var collection *mongo.Collection
+
 func main() {
-	/* 	BASIC GO
-	1. ini ibaratnya int main()-nya di C/C++
-	2. Kalau print disini kita pake fmt.Println("...")
-	3. Kalau mau dijalanin, kita pake go run main.go
-	*/
-
-	/* 	VARIABLES IN GO
-	1. var x int = 10 // cara lama
-	2. var x = 10 // cara baru, infer type
-	3. x := 10 // cara paling baru, infer type, short declaration
-	4. x = 20 // assign value to x
-	5. var x, y int = 10, 20 // multiple variable declaration
-	6. var x, y = 10, 20 // multiple variable declaration with infer type
-	7. x, y := 10, 20 // multiple variable declaration with short declaration
-
-	OPERATORS IN GO
-	1. x++ // increment x
-	2. x-- // decrement x
-	3. x += 10 // add 10 to x
-	4. x -= 10 // subtract 10 from x
-	5. x *= 10 // multiply x by 10
-	6. x /= 10 // divide x by 10
-	7. x %= 10 // modulus x by 10
-	8. x &= 10 // bitwise AND x with 10
-	9. x |= 10 // bitwise OR x with 10
-	10. x ^= 10 // bitwise XOR x with 10
-	11. x <<= 10 // left shift x by 10
-	12. x >>= 10 // right shift x by 10
-	13. x &=^ 10 // bit clear x with 10
-	*/
-
-	/* API IN GO
-	1. Pertama install dulu package "fiber/v2" (ibaratnya ini template-nya kalau di express.js)
-		- Caranya: "go get github.com/gofiber/fiber/v2"
-	2. Terus kita import package-nya di atas (import "github.com/gofiber/fiber/v2") bisa pake ctrl+space buat auto-complete
-
-	3. Terus kita bisa bikin instance-nya gini:
-		app := fiber.New()
-	4. Terus kita bisa bikin route-nya gini:
-		- buat function handler-nya dulu:
-			func namaHandler(ctx *fiber.Ctx) error {
-				// logic api-nya disini
-			}
-		- terus, lu tinggal jalanin aja si app-nya:
-			app.Get("/namaRoute", namaHandler) <- ini contoh dari jalanin GET request dari handler yang udah dibuat tadi
-			app.Post("/namaRoute", namaHandler) <- ini contoh dari jalanin POST request dari handler yang udah dibuat tadi
-			app.Put("/namaRoute", namaHandler) <- ini contoh dari jalanin PUT request dari handler yang udah dibuat tadi
-			app.Delete("/namaRoute", namaHandler) <- ini contoh dari jalanin DELETE request dari handler yang udah dibuat tadi
-
-			app.Listen(":3000") <- ini contoh dari jalanin server di port 3000 (port bisa kita ganti-ganti)
-
-		Contoh implementasi ada dibawah sini:
-	*/
-
-	app := fiber.New()
-
-	app.Get("/", contohGetHandler) // ini contoh jalanin GET request
-
-	// Baca new task 2 dibawah func Main() ini baru lanjutin codingan dibawah sini (kalau belum skip ke app.Listen(":4000"))
-	// Ini bagian dari new task 3
-
-	// step 1: setelah lu download godotenv, kita load dulu file-nya
-	if err := godotenv.Load(".env"); err != nil {
+	// 3. Load .env file-nya
+	err := godotenv.Load(".env")
+	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
 
-	// step 2: kalau ga error, kita ambil dotenv variable-nya (ambil PORT-nya sebagai contoh)
-	PORT := os.Getenv("PORT")
+	// 4. Ambil connection string-nya
+	MONGODB_URI := os.Getenv("MONGODB_URI")
 
-	// Batas akhir new task 3 (bawah ini new task 2 soal API tanpa koneksi ke database)
+	// 5. Establish connection ke MongoDB
+	clientOptions := options.Client().ApplyURI(MONGODB_URI)
+	client,err := mongo.Connect(context.Background(), clientOptions)
+	if err != nil {
+		log.Fatal("Error connecting to MongoDB:", err)
+	}
+	// Pinging Test
+	err = client.Ping(context.Background(), nil)
+	if err != nil {
+		log.Fatal("Error pinging MongoDB:", err)
+	}
 
-	// Buat array dari Todo ini
-	todos := []Todo{}
+	// Appendix 3: Kita juga pengen agar client-nya disconnect ketika dia udah selesai (dia akan disconnect setelah func Main selesai)
+	defer client.Disconnect(context.Background())
 
-	// Sekarang buat post handler-nya (satuin sama App aja keknya ini best practice-nya)
-	app.Post("/api/todos", func(c *fiber.Ctx) error {
-		// Buat template dari Todo (variable yang akan menampung data dari POST)
-		todo := &Todo{}
+	// Test Connection
+	fmt.Println("Connected to MongoDB!")
 
-		// Bind data dari POST ke variable todo (ini mirip body-parser di express.js)
-			// Notes: disini try-catch-nya kita ganti pake if-else
-		if err := c.BodyParser(todo); err != nil { // kalau c.BodyParser(todo) terjadi error, kita return ke variable err
-			return err
-		}
+	// 6. Kita connect ke database (collection) dari MongoDB
+	collection = client.Database("golang_db").Collection("todos")
 
-		// Handle juga kalau gaada data yang di-POST
-		if todo.Body == "" {
-			return c.Status(400).JSON(fiber.Map{
-				"error": "Body is required",
+	// 7. Lakukan CRUD API disini
+	app := fiber.New()
+	// 7.1. Get All Todos
+	app.Get("/api/todos", func(c *fiber.Ctx) error {
+		var todos []Todo
+
+		cursor, err := collection.Find(context.Background(), bson.M{}) // bayangin aja kita mau fetch semua collection-nya (kalau ada filter kita taro ke dalam bson.M{})
+		// Kenapa ada cursor dan err? cursor ibaratnya return-value dari query di MongoDB, err ma ya error ya
+		if err != nil {
+			return c.Status(500).JSON(fiber.Map{
+				"error": "Error fetching todos",
 			})
 		}
 
-		// Nah, kalau semua udah oke, kita simpen ke array tadi
-		todo.ID = len(todos) + 1
-		todos = append(todos, *todo)
+		// Appendix 2: ketika Get request ini dijalankan, kita ingin logic-nya dijalankan secara synchronous, untuk memastikan kita jalankan ini:
+		defer cursor.Close(context.Background())
+
+		// ingat nih, collection itu ga cuman 1 data tapi bisa banyak dan dia return dalam bentuk cursor
+		// Nah kita looping cursor-nya untuk ambil datanya satu-satu
+		for cursor.Next(context.Background()) {
+			var todo Todo // kita buat variable untuk menampung cursor yang lagi iterate si collections-nya
+			if err := cursor.Decode(&todo); err != nil {
+				return c.Status(500).JSON(fiber.Map{ // ini basically try-catch-nya
+					"error": "Error decoding todo",
+				})
+			} // Basically kita coba decode cursor-nya ke dalam variable yang kita buat diatas
+			todos = append(todos, todo) // Nah ini kita append ke dalam array todos tadi
+		}
+
+		// Appendix 1: Decode() itu function buat mindahin data dari collection ke dalam bentuk struct
+
+		return c.JSON(todos)
+	})
+
+	// 7.2. Create a Todo
+	app.Post("/api/todos", func(c * fiber.Ctx) error {
+		// Buat variable berdasarkan struct diatas
+		todo := &Todo{}
+
+		// Ambil data dari request body-nya
+		if err := c.BodyParser(todo); err != nil {
+			return c.Status(400).JSON(fiber.Map{
+				"error": "Error parsing request body",
+			})
+		}
+
+		// Basic validation incase body-nya kosong
+		if todo.Body == "" {
+			return c.Status(400).JSON(fiber.Map{
+				"error": "Body cannot be empty",
+			})
+		}
+
+		// Masukin ke dalam collection-nya
+		insertResult, err := collection.InsertOne(context.Background(), todo)
+		if err != nil {
+			return c.Status(500).JSON(fiber.Map{
+				"error": "Error inserting todo",
+			})
+		}
+
+		// Masukin ke dalam struct diatas
+		todo.ID = insertResult.InsertedID.(primitive.ObjectID)
+		todo.Completed = false
+		// todo.Body kita skip karena udah diambil diatas
 
 		return c.Status(201).JSON(todo)
 	})
 
-	// Buat update handler-nya
-	app.Put("/api/todos/:id", func(c *fiber.Ctx) error {
-		// Ambil id dari parameter-nya
-		id := c.Params("id")
+	// 7.3. Update a Todo
+	app.Put("/api/todos/:id", func(c * fiber.Ctx) error {
+		id := c.Params("id") // ambil id dari URL-nya
 
-		// Cari todos sesuai dengan id-nya
-		for i, todo := range todos {
-			if fmt.Sprint(todo.ID) == id {
-				todos[i].Completed = !todos[i].Completed
-				return c.Status(200).JSON(todos[i])
-			}
+		// convert id-nya ke dalam bentuk ObjectID (biar bisa kita lakuin comparison "==")
+		objectID, err := primitive.ObjectIDFromHex(id)
+		if err != nil {
+			return c.Status(400).JSON(fiber.Map{
+				"error": "Invalid ID",
+			})
 		}
 
-		// Kalau gaada, kita return error
-		return c.Status(404).JSON(fiber.Map{
-			"error": "Todo ID not found",
+		// Update data-nya pake UpdateOne(context.Background(), filter, update)
+		_, err = collection.UpdateOne(context.Background(), bson.M{"_id": objectID}, bson.M{"$set":bson.M{"completed":true}})
+		if err != nil {
+			return c.Status(500).JSON(fiber.Map{
+				"error": "Error updating todo",
+			})
+		}
+
+		// Kalau berhasil ywd kita return 200 OK
+		return c.Status(200).JSON(fiber.Map{
+			"message": "Todo updated",
 		})
 	})
 
-	// Buat delete handler-nya
+	// 7.4. Delete a Todo
 	app.Delete("/api/todos/:id", func(c *fiber.Ctx) error {
-		// Ambil id dari parameter
-		id := c.Params("id")
+		id := c.Params("id") // ambil id dari URL
 
-		// Cari todos sesuai dengan id-nya
-		for i, todo := range todos {
-			if fmt.Sprint(todo.ID) == id {
-				// Hapus instead of Update
-				todos = append(todos[:i], todos[i+1:]...)
-				/*
-					Logic diatas itu mirip kayak ini:
-					tambahin value dari 0 sampai sebelum index i yg mau dihapus
-					terus tambahin value dari index i+1 sampai akhir array-nya
-					terus kita append ke array todos-nya
-				*/
-				return c.Status(200).JSON(fiber.Map{
-					"message": "Todo deleted",
-				})
-			}
+		// convert id ke ObjectID
+		objectID, err := primitive.ObjectIDFromHex(id)
+		if err != nil {
+			return c.Status(400).JSON(fiber.Map{
+				"error": "Invalid ID",
+			})
 		}
 
-		// Kalau id yang dicari gaada, ywd kita return error
-		return c.Status(404).JSON(fiber.Map{
-			"error": "Todo ID not found",
+		// Delete data-nya pake DeleteOne(context.Background(), filter)
+		_, err = collection.DeleteOne(context.Background(), bson.M{"_id": objectID})
+		if err != nil {
+			return c.Status(500).JSON(fiber.Map{
+				"error": "Error deleting todo",
+			})
+		}
+
+		// Kalau berhasil ywd kita return 200 OK
+		return c.Status(200).JSON(fiber.Map{
+			"message": "Todo deleted",
 		})
 	})
 
-	// Appendix, buat handler GET semua todos-nya + GET todos by ID
-	app.Get("/api/todos", func(c *fiber.Ctx) error {
-		return c.Status(200).JSON(todos)
-	})
-
-	app.Get("/api/todos/:id", func(c *fiber.Ctx) error {
-		id := c.Params("id")
-
-		for _, todo := range todos {
-			if fmt.Sprint(todo.ID) == id {
-				return c.Status(200).JSON(todo)
-			}
-		}
-
-		return c.Status(404).JSON(fiber.Map{
-			"error": "Todo ID not found",
-		})
-	})
-
-	app.Listen(":" + PORT) // ini contoh jalanin server di port 3000
+	// Run server di sini
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "5000"
+	}
+	log.Fatal(app.Listen("0.0.0.0:" + port))
 }
-
-// 2. New Tasks - Kita akan coba buat API sederhana tanpa koneksi ke database
-
-// Anggep aja ini adalah bentuk class dari data yang kita mau simpan di database (ini mirip class kalau dalam konsep OOP)
-type Todo struct {
-	ID			int 	`json:"id"`
-	Completed 	bool 	`json:"completed"`
-	Body 		string 	`json:"body"`
-}
-
-func contohGetHandler(ctx *fiber.Ctx) error {
-	return ctx.Status(200).JSON(fiber.Map{
-		"data": "Ini contoh data-nya",
-		"status": "success",
-	})
-}
-
-// 3. New Tasks - Buat API dengan koneksi ke database
-/*
-1. Install package "github.com/joho/godotenv" (ini buat ngambil env variable dari .env file)
-	- Caranya: "go get github.com/joho/godotenv"
-*/
