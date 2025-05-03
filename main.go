@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -18,7 +19,7 @@ import (
 
 // 1. Buat struct untuk data yang akan diambil, dsbnya di Database.
 type Todo struct {
-	ID			primitive.ObjectID		`json:"id,omitempty" bson:"_id,omitempty"` // tambahin `bson:"_id"` basically ini data format di MongoDB
+	ID			primitive.ObjectID		`json:"_id,omitempty" bson:"_id,omitempty"` // tambahin `bson:"_id"` basically ini data format di MongoDB
 	Completed 	bool					`json:"completed"`
 	Body		string					`json:"body"`
 } // ID disini jadi primitive.ObjectID karena bawaan dari MongoDB-nya.
@@ -60,6 +61,14 @@ func main() {
 
 	// 7. Lakukan CRUD API disini
 	app := fiber.New()
+
+	// CORS Middleware adjustment (ini biar bisa diakses dari localhost:5173)
+	// CORS itu Cross-Origin Resource Sharing, jadi kita bisa akses API dari domain yang berbeda (localhost:5173)
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "http://localhost:5173/",
+		AllowHeaders: "Origin,Content-Type,Accept",
+	}))
+
 	// 7.1. Get All Todos
 	app.Get("/api/todos", func(c *fiber.Ctx) error {
 		var todos []Todo
