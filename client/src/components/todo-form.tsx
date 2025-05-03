@@ -1,3 +1,4 @@
+import { BASE_URL } from "@/App";
 import { Button, Flex, Input, Spinner } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
@@ -11,7 +12,7 @@ const TodoForm = () => {
     mutationFn: async (e: React.FormEvent) => {
       e.preventDefault();
       try {
-        const res = await fetch("http://localhost:4000/api/todos", {
+        const res = await fetch(BASE_URL + "/todos", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -43,7 +44,6 @@ const TodoForm = () => {
           type="text"
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
-          ref={(input) => input && input.focus()}
         />
         <Button
           mx={2}

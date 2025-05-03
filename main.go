@@ -30,9 +30,12 @@ var collection *mongo.Collection
 
 func main() {
 	// 3. Load .env file-nya
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	// Notes: kalau di production, kita akan skip env file ini.
+	if os.Getenv("ENV") != "production" {
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
 	}
 
 	// 4. Ambil connection string-nya
@@ -68,6 +71,7 @@ func main() {
 		AllowOrigins: "http://localhost:5173/",
 		AllowHeaders: "Origin,Content-Type,Accept",
 	}))
+	// CORS dipakai kalau kita mau jalanin dalam local devices, tapi kalau dalam devvelopment, kita bisa comment ni code.
 
 	// 7.1. Get All Todos
 	app.Get("/api/todos", func(c *fiber.Ctx) error {
@@ -193,5 +197,11 @@ func main() {
 	if port == "" {
 		port = "5000"
 	}
+
+	// Sekarang kita akan set agar client folder-nya jadi static
+	if os.Getenv("ENV") == "production" {
+		app.Static("/", "./client/dist")
+	}
+
 	log.Fatal(app.Listen("0.0.0.0:" + port))
 }
