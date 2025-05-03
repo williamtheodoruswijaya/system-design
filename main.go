@@ -7,7 +7,6 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -67,10 +66,10 @@ func main() {
 
 	// CORS Middleware adjustment (ini biar bisa diakses dari localhost:5173)
 	// CORS itu Cross-Origin Resource Sharing, jadi kita bisa akses API dari domain yang berbeda (localhost:5173)
-	app.Use(cors.New(cors.Config{
-		AllowOrigins: "http://localhost:5173/",
-		AllowHeaders: "Origin,Content-Type,Accept",
-	}))
+	// app.Use(cors.New(cors.Config{
+	// 	AllowOrigins: "http://localhost:5173/",
+	// 	AllowHeaders: "Origin,Content-Type,Accept",
+	// }))
 	// CORS dipakai kalau kita mau jalanin dalam local devices, tapi kalau dalam devvelopment, kita bisa comment ni code.
 
 	// 7.1. Get All Todos
