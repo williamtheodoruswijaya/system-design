@@ -1,1 +1,0 @@
-Halo, aku di load dari file ini (golang embed)
