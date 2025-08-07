@@ -1,7 +1,3 @@
 package main
 
-import "fmt"
-
-func main() {
-  fmt.Println("Chat App v0.01")
-}
+// step 1: define upgrader (ini fungsinya untuk )
