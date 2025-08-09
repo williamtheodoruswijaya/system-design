@@ -111,17 +111,17 @@ func (s *UserServiceImpl) Create(ctx context.Context, request request.CreateUser
 
 	go func() {
 		defer wg.Done()
-		user, err := s.UserRepository.Find(ctx, s.DB, user.Username)
+		foundUser, err := s.UserRepository.Find(ctx, s.DB, user.Username)
 		mu.Lock()
-		existingUser, errUsername = u, err
+		existingUser, errUsername = foundUser, err
 		mu.Unlock()
 	}()
 
 	go func() {
 		defer wg.Done()
-		email, err := s.UserRepository.FindByEmail(ctx, s.DB, user.Email)
+		foundEmail, err := s.UserRepository.FindByEmail(ctx, s.DB, user.Email)
 		mu.Lock()
-		existingEmail, errEmail = email, err
+		existingEmail, errEmail = foundEmail, err
 		mu.Unlock()
 	}
 
