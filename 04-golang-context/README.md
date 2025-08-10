@@ -218,3 +218,98 @@ c.Request = c.Request.WithContext(ctx)
 - Pakai method `.Value(key)`
 - Gimana cara kerjanya? ketika kita menggunakan `.Value()`, dia akan mencari key tersebut dari dirinya sendiri terlebih dahulu, oh kalau ternyata beda key, baru dia akan naik ke parent-nya (oh kalau ternyata beda key juga, dia akan naik lagi, dstnya sampai dapat).
 - Maka sangat dianjurkan untuk setiap orang tua memiliki child satu saja biar ga pusing :)
+
+
+## Context With Cancel
+
+- Selain menambahkan value ke dalam context, kita juga bisa menambahkan sinyal cancel ke Context.
+- Kapan sinyal cancel diperlukan dalam context?
+- Contoh ketika kita butuh menjalankan proses lain, dan kita ingin memberi sinyal cancel ke proses tersebut.
+- Biasanya proses ini berupa goroutine yang berbeda, sehingga dengan mudah jika kita ingin membatalkan eksekusi goroutine, kita bisa mengirim sinyal cancel ke contextnya.
+- Namun ingat goroutine yang menggunakan context, tetap harus melakukan pengecekan terhadap contextnya, jika tidak, tidak ada gunanya. (Pakai parameter context tapi ga pernah dipake).
+- Untuk membuat context dengan cancel signal, kita bisa menggunakan function `context.WithCancel(parent)`.
+
+
+## Goroutine Leak (Goroutine yang jalan terus dan tidak bisa berhenti)
+
+[Code](03-cancel-signal)
+
+Nah, ini yang ngejelasin kenapa kita ngejalanin Consumer di Kafka itu pakai ctx.Done() juga yang bakal return value once Cancel() are triggered. Cancel() sendiri ada dari Context.WithCancel(parent) yang basically return 2 value yaitu child context yang mana akan return sebuah value pada ctx.Done() once cancel() triggered yang juga di return oleh fucntion WithCancel(parent) yang sama.
+Intinya coba pahamin Consumer.go di Kafka udah gitu balik lagi baca yang ini. It will all make senses.
+```go
+parent := context.Background()
+
+// create a context with cancel
+ctx, cancelFunc := context.WithCancel(parent)
+
+// ctx here will be passed into the function that have a running goroutines that may leaked.
+// why? because ctx here have a channel which is ctx.Done() that will return a value, triggering a stop on a running goroutine.
+// ctx.Done() only returns a value when cancelFunc() are called...
+```
+
+
+## Context With Timeout
+
+- Kita bisa menambahkan sinyal cancel ke Context secara otomatis (kalau yang WithCancel() tadi itu manual).
+- Ini kepakai kek waktu kita query ke database terus kalau responsenya memakan waktu lebih dari 5 detik, kita bisa melakukan cancel() terhadap process yang sedang berjalan.
+- Cocok dipakai untuk case misal database lagi down, nah instead of making the request infinitely, we can stop the process by giving a time limit.
+- Intinya ini time limit buat ngebatesin berapa lama sebuah process berjalan.
+- Cara pakenya literally `context.WithTimeout(parent, duration)`
+- Biasanya kita pake khusus untuk `WithCancel()` dan `WithTimeout()` itu kadang kek gini:
+  - `ctx, cancel := context.WithCancel(ctx.Background())`
+  - `ctx, cancel := context.WithTimeout(ctx.Background(), 5 * time.Second)`
+- Nah, khusus untuk Context With Timeout, untuk apa cancel functionnya? nah bisa aja hasilnya keluar lebih cepat daripada time limitnya, kita tetap harus menjalankan cancel function tersebut.
+- Biasa, khusus untuk Timeout, kita pakai `defer cancel()` buat otomatis jalanin cancelnya begitu processnya selesai.
+
+Contoh code:
+```go
+func CreateCounter(ctx context.Context) chan int {
+	destination := make(chan int)
+	go func() {
+	    defer close(destination)
+		counter := 1
+		for {
+			select {
+			case <- ctx.Done()
+			    return
+			default:
+				destination <- counter
+				counter++
+				time.Sleep(1 * time.Second) // simulate a slow process
+            }   
+        }   
+    }
+	return destination
+}
+
+func main() {
+    // check how many goroutines are running before and after CreateCounter()
+    fmt.Println("Total Goroutine: ", runtime.NumGoroutine())
+    
+    // Initiate context here
+	ctx, cancel := context.WithTimeout(context.Background(), 5 * time.Second) // The cancel function here, if it's called, it will make ctx.Done() return a value making the goroutines stop
+    defer cancel() // still need to be called to makesure if the function are finished under the time limit we set earlier, stop the goroutines
+    
+	// Run the goroutine
+    destination := CreateCounter(ctx)
+	
+    // Check how many value are in the channel
+    for n := range destination {
+        fmt.Println("Counter: ", n)
+        if n == 10 {
+            break
+        }
+    }
+    
+    // check how many goroutines are running before and after CreateCounter()
+    fmt.Println("Total Goroutine: ", runtime.NumGoroutine())
+}
+```
+
+
+## Context With Deadline
+
+- Selain menggunakan timeout untuk melakukan cancel otomatis, kita juga bisa menggunakan deadline.
+- Pengaturan deadline sedikit berbeda dengan timeout, jika timeout kita beri waktu dari sekarang, kalo deadline ditentukan kapan waktu timeout nya, misal jam 12 siang hari ini
+- Untuk membuat context dengan cancel signal secara otomatis menggunakan deadline, kita bisa menggunakan function `context.WithDeadline(parent, time)`
+  - Contoh: `ctx, cancel := context.WithDeadline(parent, time.Now().Add(5 * time.Second))`
