@@ -60,7 +60,7 @@ app.Get('/register', c.UserController.Create)
 Biasanya routing-routing ini kita simpan di directory `delivery/http/route/route.go` kalau mengikuti DDD (Domain-Driven Architecture) yang ada.
 
 
-## Ctx
+## Ctx `*fiber.Ctx`
 
 - Saat kita membuat handler di Fiber Routing, kita cukup menggunakan parameter `fiber.Ctx`.
 - `Ctx` ini merupakan representasi dari Request dan juga Response di Fiber. Jadi, Request dan Response semuanya disimpan di Ctx ini.
@@ -120,7 +120,7 @@ func main() {
 ```
 
 
-## Route Parameter
+## Route Parameter `.Params(<name>)`
 
 - Kita bisa menambahkan parameter di PATH Urlnya.
 - Biasa cocok untuk pengiriman data via PATH Url.
@@ -149,7 +149,7 @@ func main() {
 [Code](04-route-parameter/main.go)
 
 
-## Request Form (Body - form-data)
+## Request Form (Body - form-data) `.FormValue(<key>)`
 
 - Ketika kita mengirimkan data menggunakan HTTP Form, kita bisa menggunakan method `FormValue(<nama-key>)` pada `Ctx` untuk mendapatkan data yang dikirimnya.
   
@@ -174,10 +174,143 @@ func main() {
 Notes: ini bukan parse JSON dari body tapi cuman kalau pakai form-data. (cara test-nya di Postman pake form-data bukan Raw)
 
 
-## Multipart Form
+## Multipart Form `.FormFile(<"key-name">)` & `.SaveFile(<file-variable>, <"target-directory">)`
 
-- P
+- Untuk mengambil data file yang terdapat di MultipartForm, contoh kita mau mengirimkan file, kita bisa menggunakan method `FormFile()` di Ctx, namun method ini bisa menghasilkan error.
+  
+Mksd, dari mengembalikan error itu kek gini:
+```go
+// instead of writing it like this:
+file := ctx.FormFile("<key-name>")
 
+// we write it like this
+file, err := ctx.FormFile("<key-name>")
+if err != nil {
+	panic(err)
+}
+```
 
-## Request Body 
+- Selain itu, Ctx juga memiliki method `SaveFile()` untuk menyimpan file.
+  
+Contoh:
+```go
+err = ctx.SaveFile(file, "./target/"+file.Filename)
+if err != nil {
+	panic(err)
+}
+```
+
+[Code-Lengkap](06-multipart-form/main.go)
+
+## Request Body `.Body()`
 (ini yang biasa paling sering dipake buat send data dari client ke server)
+
+- Saat kita membuat RESTful API, kita pasti biasanya akan mengambil informasi request body yang dikirim oleh client, misal JSON, XML, dsbnya.
+- Kita bisa mengambil informasi request body menggunakan method `.Body()` tanpa parameter apapun
+- Kita bisa konversi menggunakan `json.Unmarshal(<body-variable>, <request-struct>)`
+
+[Code](07-request-body/main.go)
+
+
+## Body Parser `.BodyParser(<request-struct-variable>)`
+
+- Melakukan konversi request body dari []byte menjadi struct sangat menyulitkan jika harus dilakukan manual terus-menerus
+- Untungnya, Fiber bisa melakukan parsing otomatis sesuai tipe data yang dikirim, dan otomatis dikonversi ke struct.
+- Ada beberapa Content-Type yang didukung oleh Fiber, caranya dengan menambahkan tag pada structnya.
+- Ini bisa pakai method `.BodyParser(<request-struct-variable>)`
+  
+|                  Content Type                   | Struct Tag |
+|:-----------------------------------------------:|:-----------|
+|       `application/x-www-form-urlencoded`       | form       |
+|              `multipart/form-data`              | form       |
+| **`application/json`** (ini yang paling sering) | json       |
+|                `application/xml`                | xml        |
+|                   `text/xml`                    | xml        |
+  
+Contoh (kita pakai tag ini di struct-nya):
+```go
+type RegisterRequest struct {
+    Username string `json:"username" xml:"username" form:"username"`
+    Password string `json:"password" xml:"password" form:"password"`
+    Name     string `json:"name" xml:"name" form:"name"`
+}
+```
+Nanti otomatis bakal di mapping sama si Fiber-nya sesuai dengan tag yang ada di struct dengan body-nya.
+```go
+func RegisterController(c *fiber.Ctx) error {
+	// 1. initialize request struct as a variable
+	var request RegisterRequest
+
+	// 2. parse body from json to our defined struct
+	err := c.BodyParser(&request)
+	if err != nil {
+		return err
+	}
+
+	// 3. call use-case process, etc...
+
+	// 4. return response
+	return c.JSON(request)
+}
+
+func main() {
+    app := fiber.New()
+    
+    app.Post("/register", RegisterController)
+    
+    err := app.Listen(":8080")
+    if err != nil {
+        panic(err)
+    }
+}
+```
+
+
+## HTTP Response
+
+- Selain sebagai representasi dari HTTP Request, *fiber.Ctx juga digunakan sebagai representasi HTTP Response.
+- Sebelumnya biasa kita pakai `.SendString()` buat mengembalikan response body dalam bentuk string.
+- Tapi sebenarnya kalau backend kita biasa pakai `.JSON(<struct-defined-response-body>)` tapi biasanya ada banyak lagi.
+  
+|  Response Method  | Keterangan                                   |
+|:-----------------:|:---------------------------------------------|
+| `Set(key, value)` | Mengubah header ke response                  |
+| `Status(status)`  | Mengubah response status                     |
+| `SendString(body` | Mengubah response body menjadi string        |
+|    `XML(body)`    | Mengubah struct yang udah di define jadi XML |
+|   `JSON(body)`    | Mengubah struct yang udah di define jadi XML |
+| `Redirect(path)`  | Mengubah response menjadi redirect ke path   |
+| `Cookie(cookie)`  | Menambah cookie ke response                  |
+
+Contoh yang udah kita sudah praktek-an pada function `RegisterController(c *fiber.Ctx)` di[atas](08-body-parser/main.go).
+  
+Atau
+  
+liat code dibawah:  
+[Code](09-http-response/main.go)
+  
+Tapi biasanya kita return-nya pake generic struct yang udah di define macam ini nih:
+```go
+type WebResponse[T any] struct {
+    Data   T             `json:"data"`
+    Paging *PageMetadata `json:"paging,omitempty"`
+    Errors string        `json:"errors,omitempty"`
+}
+
+type UserResponse struct {
+    ID        string `json:"id,omitempty"`
+    Name      string `json:"name,omitempty"`
+    Token     string `json:"token,omitempty"`
+    CreatedAt int64  `json:"created_at,omitempty"`
+    UpdatedAt int64  `json:"updated_at,omitempty"`
+}
+
+func (c *UserController) Register(ctx *fiber.Ctx) error {
+	// process (call usecase layer, parse body, take value, initialize context)...
+    
+	return ctx.JSON(model.WebResponse[*model.UserResponse]{Data: response})
+}
+```
+
+
+## Download File
