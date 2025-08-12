@@ -314,3 +314,160 @@ func (c *UserController) Register(ctx *fiber.Ctx) error {
 
 
 ## Download File
+
+- Fiber juga bisa digunakan untuk mengembalikan resposne File atau `byte[]` (data type File di Golang, biasa kek waktu bikin variable dari Golang Embed)
+- Sama, methodnya juga ada banyak tergantung kegunaannya.
+
+|    Method Download File    |                                 Keterangan                                 |
+|:--------------------------:|:--------------------------------------------------------------------------:|
+| `Download(file, filename)` | Mengubah response menjadi isi dari file-nya (dan dipaksa agar di download) |
+|      `Send([]byte)`        |                  Mengubah response menjadi data `[]byte`                   |
+| `SendFile(file, compress)` |                    Mengubah response menjadi isi file                      |
+
+
+## Routing Group
+
+- Saat kita membuat aplikasi web dengan banyak endpoint, kadang-kadang kita perlu melakukan Grouping beberapa routing
+- Hal ini agar lebih rapi dan mudah dikembangkan ketika membuat banyak routing
+- Kita bisa membuat grup dengan menggunakan `Group()` di `fiber.App`
+- Dan kita bisa menambahkan Routing ke `Group()` yang sudah kita buat.
+
+Contoh kode:
+```go
+func TestRoutingGroup() {
+	helloWorld := func(c *fiber.Ctx) error { // dummy handler function
+		return c.SendString("Hello World!")
+    }
+	
+	// group 1: "/api/hello"
+	api := app.Group("/api")
+	api.Get("/hello", helloWorld)
+	api.Get("/world", helloWorld)
+	
+	// group 2: "/api/web"
+	web := app.Group("/web")
+	web.Get("/hello", helloWorld)
+	web.Get("/world", helloWorld)
+}
+```
+
+
+## Pre Fork
+
+- Secara default, saat aplikasi berjalan, dia akan berjalan secara standalone dalam satu proses.
+- Kadang-kadang, ketika kita jalankan dalam sebuah server yang jumlah CPU nya banyak, mungkin ada baiknya kita menjalankan beberapa proses agar semua CPU terpakai dengan optimal.
+- Namun yang jadi masalah, jika kita jalankan beberapa aplikasi Fiber secara bersamaan, maka kita harus menggunakan port yang berbeda-beda.
+- Dengan Pre Fork ini, kita bisa membuat server menjalankan lebih dari 1 aplikasi Fiber sesuai dengan jumlah CPUnya tanpa menggunakan port yang baru.
+- Hal ini yang mungkin membuat Fiber lebih cepat daripada Gin dan framework lain karena konfigurasi ini (?)
+- Fiber memiliki konfigurasi bernama `PreFork`, yang defaultnya adalah false, dan bisa kita ubah menjadi True.
+- PreFork adalah fitur menjalankan beberapa proses Fiber namun menggunakan Port yang sama.
+- Ini bawaan dari sistem operasi Linux, Unix, Map.
+- Teknik ini biasa digunakan di NGINX. Namanya, Socket Sharding.
+
+Cara-nya literally:
+```go
+app := fiber.New(fiber.Config{
+	Prefork: true
+})
+```
+Misal, processor kita ada 10, maka ada 10 fiber server yang berjalan. Tapi, diantara semuanya, ada yang namanya Child dan Parent, dimana Child adalah Worker dan Parent adalah yang manage-nya. Biasa Child/Worker itu yang jumlahnya sesuai dengan CPU kita.
+
+
+## Error Handling
+
+- Kita bisa perhatikan kalau kita lihat Fiber Handler, itu return value-nya error, yang artinya kalau error, kita tinggal return errornya.
+- Dan ketika terjadi error, secara otomatis akan ditangkap oleh ErrorHandler pada `fiber.Config`
+- Kita bisa mengubah implementasi dari Error Handler-nya kalau kita mau
+
+```go
+app := fiber.New(fiber.Config{
+	ErrorHandler: func(c *fiber.Ctx, err error) error {
+		c.Status(fiber.StatusInternalServerError)
+		return c.SendString("Error": + err.Error())
+    }
+})
+```
+
+Biasa sih kalau best-practices kita pisah jadi kek begini:
+```go
+func NewFiber(config *viper.Viper) *fiber.App {
+	var app = fiber.New(fiber.Config{
+		AppName:      "nama aplikasi ceritanya",
+		ErrorHandler: NewErrorHandler(),
+		Prefork:      True,
+	})
+
+	return app
+}
+
+func NewErrorHandler() fiber.ErrorHandler {
+	return func(ctx *fiber.Ctx, err error) error {
+		code := fiber.StatusInternalServerError
+		if e, ok := err.(*fiber.Error); ok {
+			code = e.Code
+		}
+
+		return ctx.Status(code).JSON(fiber.Map{
+			"errors": err.Error(),
+		})
+	}
+}
+```
+
+
+## Template
+
+- Fiber secara default tidak memiliki template engine seperti Web Framework kebanyakan (ga kek Laravel ada Blade misal jadi bisa ngoding HTML, CSS, JS di Laravel).
+- Tapi Fiber bisa integrasi sama template engine yang udah terkenal.
+- Kita bisa liat semua yang di dukung disini: https://docs.gofiber.io/template
+- Kek contoh pake mustache di Fiber (ya kalo mo nyoba coba aja ada di Video PZN 01:17:41)
+
+
+## Middleware
+
+- Fiber juga mendukung Middleware
+- Dengan Middleware, kita bisa membuat Handler yang bisa melakukan **sebelum** dan **setelah** _request itu dikerjakan oleh Handler yang memproses request-nya_.
+- Fiber sendiri menyediakan banyak Middleware.
+- Tapi sekarang kita akan mencoba untuk membuat Middleware terlebih dahulu.
+- Membuat Middleware itu sederhana, cukup membuat Handler seperti pada Routing.
+- Namun dalam Handlernya, jika kita ingin meneruskan Request ke Handler selanjutnya, kita perlu memanggil `Next()` pada Ctx.
+  
+Contoh:
+```go
+func middlewareExample(c *fiber.Ctx) error {
+	fmt.Println("I'm middleware before processing request")
+	
+	// jalankan handler/controller-nya
+	err := c.Next()
+	
+	fmt.Println("I'm middleware after processing request")
+	
+	return err
+}
+```
+Jadi, kunci-nya disini ada di penempatan `c.Next()` yaitu pemanggilan controller/handler yang kita ingin wrap dalam middleware. Biasanya, sebelum masuk ke controller, kita bisa passing ID dari user atau pun melakukan autentikasi middleware seperti untuk API ini dipanggil, kita harus memasukkan JWT Token terlebih dahulu baru bisa lanjut ke handlernya, dsbnya.
+
+
+## Prefix
+
+- Middleware kalau kita pake `.Use()` di group tertentu, itu biasanya kita pakai tu middleware di semua endpoint yang berkorelasi dalam group tersebut.
+  
+Contoh:
+```go
+app.Use("/api", func(c *fiber.Ctx) error {
+	fmt.Println("I'm middleware before processing request")
+	err := c.Next()
+	fmt.Println("I'm middleware after processing request")
+})
+
+app.Get("/hello", func(c *fiber.Ctx) error {
+	return c.SendString("hello world")
+})
+```
+Artinya kek yang diatas, kalau kita hit "/hello", itu gaakan jalan middlewarenya, tapi kalau pake "/api/hello", baru jalan middlewarenya.
+
+
+## Middleware Lainnya.
+
+- Fiber sudah menyediakan banyak sekali middleware yang bisa kita gunakan secara langsung, seperti RequestId, BasicAuth, FileSystem, ETag, dan sebagainya.
+- Kita bisa lihat dokumentasi penggunaannya di https://docs.gofiber.io/category/-middleware
