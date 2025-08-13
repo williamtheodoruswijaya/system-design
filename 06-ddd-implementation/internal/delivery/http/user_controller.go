@@ -40,9 +40,7 @@ func (u *UserControllerImpl) Register(c *fiber.Ctx) error {
 	// 3. call use-case layer
 	result, err := u.UserUsecase.Register(ctx, &req)
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": err.Error(),
-		})
+		return fiber.ErrInternalServerError
 	}
 
 	// 4. kalau berhasil return success, kalau gagal return failed

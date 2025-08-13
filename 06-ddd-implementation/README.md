@@ -210,9 +210,18 @@ Notes: dengan membuat struktur seperti ini, kita dapat dengan mudah mengatur con
 
 8. Baru setelah itu, kita balik lagi ke folder 'delivery/http/' buat define [`user_controller.go`](internal/delivery/http/user_controller.go).
 
-9. Controller ini akan kita define path api-nya pada folder `delivery/http/route/` di file [`route.go`](internal/delivery/http/route/route.go). Tapi sebelum lanjut, kita pertama buat middleware-nya terlebih dahulu untuk mengatur siapa aja yang bisa mengakses api tertentu (menentukan mana yang public api dan mana yang bukan public api). Sekaligus berguna juga untuk verify JWT Token.
+9. Sebelum lanjut, kita pertama buat middleware-nya terlebih dahulu untuk mengatur siapa aja yang bisa mengakses api tertentu (menentukan mana yang public api dan mana yang bukan public api). Sekaligus berguna juga untuk verify JWT Token. Ini ada di folder `delivery/http/middleware/`.
+   - Khusus penggunaan Fiber, middleware yang kita perlu pikirkan hanya middleware untuk verifikasi JWT Token, dan menyimpan info dari user itu di Context. Ini, kita define di [`auth_middleware.go`](internal/delivery/http/middleware/auth_middleware.go)
+   - Middleware lainnya seperti **logger, recovery, dan bahkan rate limiter**. Sudah tersedia dan bisa kita langsung pakai di [`route.go`](internal/delivery/http/route/route.go).
+   - Yang bakal kita pakai itu:
+     - `Recover` 🛡️: Untuk mencegah server crash jika terjadi panic di salah satu request. Methodnya, **`.Use(recover.New())`**.
+     - `CORS` 🌐: (Cross-Origin Resource Sharing) Agar API-mu bisa diakses oleh frontend dari domain yang berbeda. Methodnya, **`.Use(cors.New(cors.Config{...}))`**.
+     - `Logger` 📝: Untuk mencatat setiap request yang masuk. Sangat berguna untuk debugging. Methodnya, **`.Use(logger.New())`**.
+     - Baru Rate Limiter. Methodnya: **`.Use(limiter.New(limiter.Config{...}))`**.
 
-10. Last, setelah [`route.go`](internal/delivery/http/route/route.go) di define, kita bisa kembali ke [`app.go`](internal/config/app.go) dan menginisialisasi semua layer  (repository, usecase, dan controller), baru ke [`main.go`](cmd/web/main.go) menjalankan server backend kita dan [`main.go`](cmd/worker/main.go) dari worker untuk menjalankan consumer kita.
+10. Controller ini akan kita define path api-nya pada folder `delivery/http/route/` di file [`route.go`](internal/delivery/http/route/route.go). S
+
+11. Last, setelah [`route.go`](internal/delivery/http/route/route.go) di define, kita bisa kembali ke [`app.go`](internal/config/app.go) dan menginisialisasi semua layer  (repository, usecase, dan controller), baru ke [`main.go`](cmd/web/main.go) menjalankan server backend kita dan [`main.go`](cmd/worker/main.go) dari worker untuk menjalankan consumer kita.
 
 ### Appendix: Configuration Each Layer
 
