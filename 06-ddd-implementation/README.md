@@ -1,4 +1,4 @@
-## What is DDD (Domain-Driven Design) Architecture?
+# What is DDD (Domain-Driven Design) Architecture?
 
 This is basically Golang Clean Architecture template.
 
@@ -16,8 +16,9 @@ This is basically Golang Clean Architecture template.
 10. The Gateway using Model data to construct request to external system
 11. The Gateway perform request to external system (HTTP, gRPC, Messaging, etc)
 
+---
 
-## Setup
+# Setup
 
 1. Initialize Go Modules
 ```bash
@@ -33,6 +34,7 @@ go get github.com/twmb/franz-go
 go get github.com/golang-migrate/migrate/v4
 go get -u github.com/golang-jwt/jwt/v5
 go get github.com/gofiber/fiber/v2
+go get github.com/redis/go-redis/v9
 ```
 
 3. Create the folder
@@ -176,8 +178,9 @@ Notes: urutan tabel diperhatikan, kayak misal tabel Address punya Foreign key ke
     └───usecase                     <- ini service/usecase layer (isinya business logic aplikasi)
 ```
 
+---
 
-## Step-by-step
+# Step-by-step
 
 Nah, sebenernya gaada aturan pasti mau mulai darimana, cuman biasanya biar alurnya bagus, kalau saya sih gini:
 
@@ -188,4 +191,16 @@ Nah, sebenernya gaada aturan pasti mau mulai darimana, cuman biasanya biar alurn
    4. [`kafka.go`](internal/config/kafka.go), isinya initialize consumer dan producer dari kafka disini. (NewConsumer() & NewProducer()).
    5. [`redis.go`](internal/config/redis.go), isinya initialize client Redis.
    6. [`validator.go`](internal/config/validator.go), isinya initialize validator.
-2. Sekarang, untuk test connection ke database, kita coba buat beresin `cmd/web/main.go` dah gitu coba run filenya.
+  
+Notes: dengan membuat struktur seperti ini, kita dapat dengan mudah mengatur confignya pada [app.go](internal/config/app.go) pada bagian BootstrapConfig-nya. Jadi, misal kita ga butuh kafka. Nah, ywd tinggal ga ush pake. Jadi, pengaturan kayak gini tuh bikin architecture kita jadi scalable.
+2. Sekarang, untuk test connection ke database, kita coba buat beresin [`cmd/web/main.go`](cmd/web/main.go) dah gitu coba run filenya.
+3. Oke, config udah beres, connection ke database juga dah aman. Sekarang, kita lanjut ke bagian [`entity`](internal/entity/user_entity.go). Disini, kita akan buat tabel-tabel yang ada pada database jadi sebuah Entitas.
+4. Next, kita define [response](internal/model/response/user_response.go) dan [request](internal/model/request/user_request.go) dari setiap tabel. Ini, kita biasanya sesuaikan dengan `api.spec` kita yang isinya itu bentuk json dari request dan response untuk masing-masing tabel. 
+   1. Biasanya, kita akan buat dulu [1 generic class](internal/model/model.go) yang nampung keseluruhan response, nah bagian data-nya aja yang kita ubah berdasarkan [tabel](internal/model/response/user_response.go) response yang kita mau.
+   2. Ini [Generic Class Web Response](internal/model/model.go) khusus untuk `Response` aja ya. Karena semua requestnya udah di define di file masing-masing [`user_request.go`](internal/model/request/user_request.go).
+5. Kalau udah, kita lanjut buat setup Kafka-nya. Setup kafka sendiri bisa dilihat detailnya di[sini](../02-kafka-franz-go/README.md) atau **khusus projek ini, akan dibahas di file [`KAFKA_SETUP.md`](KAFKA_SETUP.md)**.
+6. Sekarang, setelah semua-nya beres, kita bisa mulai coding pada bagian repository. Dalam konteks ini, saya akan mulai melakukan query logic pada layer repository di file [`user_repository.go`](internal/repository/user_repository.go).
+7. Setelah repository beres, kita bisa lanjut ke business logic-nya di [`user_usecase.go`](internal/usecase/user_usecase.go).
+8. Baru setelah itu, kita balik lagi ke folder 'delivery/http/' buat define [`user_controller.go`](internal/delivery/http/user_controller.go).
+9. Controller ini akan kita define path api-nya pada folder `delivery/http/route/` di file [`route.go`](internal/delivery/http/route/route.go). Tapi sebelum lanjut, kita pertama buat middleware-nya terlebih dahulu untuk mengatur siapa aja yang bisa mengakses api tertentu (menentukan mana yang public api dan mana yang bukan public api). Sekaligus berguna juga untuk verify JWT Token.
+10. Last, setelah [`route.go`](internal/delivery/http/route/route.go) di define, kita bisa kembali ke `main.go` dan menjalankan server backend kita.
