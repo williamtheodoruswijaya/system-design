@@ -10,8 +10,8 @@ type UserProducer struct {
 	Producer *Producer[*event.UserEvent] // Gunakan generic type untuk UserEvent
 }
 
-func NewUserProducer(producer *kgo.Client) *UserProducer {
-	return &UserProducer{
+func NewUserProducer(producer *kgo.Client) UserProducer {
+	return UserProducer{
 		Producer: &Producer[*event.UserEvent]{
 			Producer: producer,
 			Topic:    "users",
