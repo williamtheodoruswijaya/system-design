@@ -213,3 +213,46 @@ Notes: dengan membuat struktur seperti ini, kita dapat dengan mudah mengatur con
 9. Controller ini akan kita define path api-nya pada folder `delivery/http/route/` di file [`route.go`](internal/delivery/http/route/route.go). Tapi sebelum lanjut, kita pertama buat middleware-nya terlebih dahulu untuk mengatur siapa aja yang bisa mengakses api tertentu (menentukan mana yang public api dan mana yang bukan public api). Sekaligus berguna juga untuk verify JWT Token.
 
 10. Last, setelah [`route.go`](internal/delivery/http/route/route.go) di define, kita bisa kembali ke [`app.go`](internal/config/app.go) dan menginisialisasi semua layer  (repository, usecase, dan controller), baru ke [`main.go`](cmd/web/main.go) menjalankan server backend kita dan [`main.go`](cmd/worker/main.go) dari worker untuk menjalankan consumer kita.
+
+### Appendix: Configuration Each Layer
+
+- Repository Layer: (ga pakai apa-apa, database ada di service layer)
+```go
+type UserRepositoryImpl struct{}
+
+func NewUserRepository() UserRepository {
+	return &UserRepositoryImpl{}
+}
+```
+
+- Service/Usecase Layer: (database, validate, redis (optional), **repository**, **producer**) -> bisa nambah lagi tergantung services-services yang dipakai
+```go
+type UserUsecaseImpl struct {
+	DB             *sql.DB
+	Validate       *validator.Validate
+	UserRepository repository.UserRepository
+	UserProducer   messaging.UserProducer
+}
+
+func NewUserUsecase(db *sql.DB, validate *validator.Validate, userRepository repository.UserRepository, userProducer messaging.UserProducer) UserUsecase {
+	return &UserUsecaseImpl{
+		DB:             db,
+		Validate:       validate,
+		UserRepository: userRepository,
+		UserProducer:   userProducer,
+	}
+}
+```
+
+- Controller/Handler layer: (**usecase**)
+```go
+type UserControllerImpl struct {
+	UserUsecase usecase.UserUsecase
+}
+
+func NewUserController(userUsecase usecase.UserUsecase) UserController {
+	return &UserControllerImpl{
+		UserUsecase: userUsecase,
+	}
+}
+```
