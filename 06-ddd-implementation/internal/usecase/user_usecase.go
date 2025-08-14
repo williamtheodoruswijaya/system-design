@@ -20,7 +20,7 @@ import (
 type UserUsecase interface {
 	// Auth
 	Register(ctx context.Context, req *request.CreateUserRequest) (*response.CreateUserResponse, error)
-	Login(ctx context.Context, req *request.ValidateUserRequest) (*response.ValidateUserResponse, error)
+	Login(ctx context.Context, req *request.ValidateUserRequest) (*string, error)
 
 	// Find User
 	FindByUserID(ctx context.Context, userID int) (*response.CreateUserResponse, error)
@@ -126,23 +126,25 @@ func (uc *UserUsecaseImpl) Register(ctx context.Context, req *request.CreateUser
 	// 7. convert the created user to response (bagusnya ini dibuat folder utils khusus convert entity ke response)
 	result := utils.ConvertUserResponse(createdUser)
 
-	// 8. publish user created event
-	if uc.UserProducer.Producer != nil {
-		// 7.1 ubah entity ke struct event
-		userEvent := utils.ConvertUserEvent(createdUser)
+	// 8. publish user created event (concurrently)
+	go func() {
+		if uc.UserProducer.Producer != nil {
+			// 7.1 ubah entity ke struct event
+			userEvent := utils.ConvertUserEvent(result)
 
-		// 7.2 send event
-		err = uc.UserProducer.Producer.Publish(userEvent)
-		if err != nil {
-			return nil, err
+			// 7.2 send event
+			err = uc.UserProducer.Producer.Publish(userEvent)
+			if err != nil {
+				fmt.Println(err)
+			}
 		}
-	}
+	}()
 
 	// 9. return response
 	return result, nil
 }
 
-func (uc *UserUsecaseImpl) Login(ctx context.Context, req *request.ValidateUserRequest) (*response.ValidateUserResponse, error) {
+func (uc *UserUsecaseImpl) Login(ctx context.Context, req *request.ValidateUserRequest) (*string, error) {
 	// step 1: validate user request
 	err := uc.Validate.Struct(req)
 	if err != nil {
@@ -172,7 +174,21 @@ func (uc *UserUsecaseImpl) Login(ctx context.Context, req *request.ValidateUserR
 		return nil, err
 	}
 
-	// step 6: if success, return token
+	// step 6: publish event (concurrently)
+	go func() {
+		if uc.UserProducer.Producer != nil {
+			// 6.1 ubah response ke struct event
+			userEvent := utils.ConvertUserEvent(userResponse)
+
+			// 6.2 send event
+			err = uc.UserProducer.Producer.Publish(userEvent)
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+	}()
+
+	// step 7: if success, return token
 	return token, nil
 }
 

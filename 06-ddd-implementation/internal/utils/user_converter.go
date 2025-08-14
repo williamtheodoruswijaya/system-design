@@ -16,9 +16,9 @@ func ConvertUserResponse(user *entity.User) *response.CreateUserResponse {
 	}
 }
 
-func ConvertUserEvent(user *entity.User) *event.UserEvent {
+func ConvertUserEvent(user *response.CreateUserResponse) *event.UserEvent {
 	return &event.UserEvent{
-		UserID:    user.ID,
+		UserID:    user.UserID,
 		Username:  user.Username,
 		Fullname:  user.Fullname,
 		Email:     user.Email,

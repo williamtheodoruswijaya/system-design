@@ -73,7 +73,7 @@ func (u *UserControllerImpl) Login(c *fiber.Ctx) error {
 		return fiber.ErrInternalServerError
 	} else {
 		// step 4: kalau berhasil return hasil-nya
-		return c.JSON(model.WebResponse[*response.ValidateUserResponse]{Data: result})
+		return c.JSON(model.WebResponse[*string]{Data: result})
 	}
 }
 

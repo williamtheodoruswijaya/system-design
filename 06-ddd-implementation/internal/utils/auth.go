@@ -16,7 +16,7 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
-func GenerateToken(user *response.CreateUserResponse) (*response.ValidateUserResponse, error) {
+func GenerateToken(user *response.CreateUserResponse) (*string, error) {
 	// baca dulu si .env-nya
 	err := godotenv.Load()
 	if err != nil {
@@ -43,10 +43,5 @@ func GenerateToken(user *response.CreateUserResponse) (*response.ValidateUserRes
 		return nil, err
 	}
 
-	// return token-nya
-	result := response.ValidateUserResponse{
-		Token: tokenString,
-	}
-
-	return &result, nil
+	return &tokenString, nil
 }
