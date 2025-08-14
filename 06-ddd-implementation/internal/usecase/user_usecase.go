@@ -3,6 +3,7 @@ package usecase
 import (
 	"06-ddd-implementation/internal/entity"
 	"06-ddd-implementation/internal/gateway/messaging"
+	"06-ddd-implementation/internal/model/event"
 	"06-ddd-implementation/internal/model/request"
 	"06-ddd-implementation/internal/model/response"
 	"06-ddd-implementation/internal/repository"
@@ -85,23 +86,23 @@ func (uc *UserUsecaseImpl) Register(ctx context.Context, req *request.CreateUser
 		CreatedAt: createdUser.CreatedAt,
 	}
 
-	// 7. publish user created event (commented out for vercel single deployment)
-	// if uc.UserProducer.Producer != nil {
-	// 	// 7.1 ubah entity ke struct event
-	// 	userEvent := &event.UserEvent{
-	// 		UserID:    createdUser.ID,
-	// 		Username:  createdUser.Username,
-	// 		Fullname:  createdUser.Fullname,
-	// 		Email:     createdUser.Email,
-	// 		CreatedAt: createdUser.CreatedAt,
-	// 	}
+	// 7. publish user created event
+	if uc.UserProducer.Producer != nil {
+		// 7.1 ubah entity ke struct event
+		userEvent := &event.UserEvent{
+			UserID:    createdUser.ID,
+			Username:  createdUser.Username,
+			Fullname:  createdUser.Fullname,
+			Email:     createdUser.Email,
+			CreatedAt: createdUser.CreatedAt,
+		}
 
-	// 	// 7.2 send event
-	// 	err = uc.UserProducer.Producer.Publish(userEvent)
-	// 	if err != nil {
-	// 		return nil, err
-	// 	}
-	// }
+		// 7.2 send event
+		err = uc.UserProducer.Producer.Publish(userEvent)
+		if err != nil {
+			return nil, err
+		}
+	}
 
 	// 8. return response
 	return result, nil
