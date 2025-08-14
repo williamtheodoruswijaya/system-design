@@ -7,7 +7,13 @@ import (
 )
 
 type UserRepository interface {
+	// Auth
 	Register(ctx context.Context, tx *sql.Tx, user *entity.User) (*entity.User, error)
+
+	// Find User
+	FindByUserID(ctx context.Context, db *sql.DB, userID int) (*entity.User, error)
+	FindByUsername(ctx context.Context, db *sql.DB, username string) (*entity.User, error)
+	FindByEmail(ctx context.Context, db *sql.DB, email string) (*entity.User, error)
 }
 
 type UserRepositoryImpl struct{}
@@ -31,4 +37,58 @@ func (r *UserRepositoryImpl) Register(ctx context.Context, tx *sql.Tx, user *ent
 	}
 
 	return &createdUser, nil
+}
+
+func (r *UserRepositoryImpl) FindByUserID(ctx context.Context, db *sql.DB, userID int) (*entity.User, error) {
+	// step 1: define query
+	query := `SELECT userid, username, fullname, email, password, profileurl, createdat FROM users WHERE userid = $1`
+
+	// step 2: execute query
+	row := db.QueryRowContext(ctx, query, userID)
+
+	// step 3: convert to entity
+	var user entity.User
+	err := row.Scan(&user.ID, &user.Username, &user.Fullname, &user.Email, &user.Password, &user.ProfileUrl, &user.CreatedAt)
+	if err != nil {
+		return nil, err
+	}
+
+	// step 4: return
+	return &user, nil
+}
+
+func (r *UserRepositoryImpl) FindByUsername(ctx context.Context, db *sql.DB, username string) (*entity.User, error) {
+	// step 1: define query
+	query := `SELECT userid, username, fullname, email, password, profileurl, createdat FROM users WHERE username = $1`
+
+	// step 2: execute query
+	row := db.QueryRowContext(ctx, query, username)
+
+	// step 3: convert to entity
+	var user entity.User
+	err := row.Scan(&user.ID, &user.Username, &user.Fullname, &user.Email, &user.Password, &user.ProfileUrl, &user.CreatedAt)
+	if err != nil {
+		return nil, err
+	}
+
+	// step 4: return entity
+	return &user, nil
+}
+
+func (r *UserRepositoryImpl) FindByEmail(ctx context.Context, db *sql.DB, email string) (*entity.User, error) {
+	// step 1: define query
+	query := `SELECT userid, username, fullname, email, password, profileurl, createdat FROM users WHERE email = $1`
+
+	// step 2: execute query
+	row := db.QueryRowContext(ctx, query, email)
+
+	// step 3: convert to entity
+	var user entity.User
+	err := row.Scan(&user.ID, &user.Username, &user.Fullname, &user.Email, &user.Password, &user.ProfileUrl, &user.CreatedAt)
+	if err != nil {
+		return nil, err
+	}
+
+	// step 4: return entity
+	return &user, nil
 }

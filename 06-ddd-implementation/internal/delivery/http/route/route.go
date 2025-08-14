@@ -53,7 +53,10 @@ func (c *RouteConfig) SetupGuestRoute() {
 	api := c.App.Group("/api")
 
 	users := api.Group("/users")
-	users.Post("/register", c.UserController.Register)
+	{
+		users.Post("/register", c.UserController.Register)
+		users.Post("/login", c.UserController.Login)
+	}
 }
 
 func (c *RouteConfig) SetupAuthRoute() {
@@ -61,4 +64,12 @@ func (c *RouteConfig) SetupAuthRoute() {
 	c.App.Use(middleware.Authenticate())
 
 	// lanjut routing api dibawah sini
+	api := c.App.Group("/api")
+
+	users := api.Group("/users")
+	{
+		users.Get("/by-id/:userID", c.UserController.FindByUserID)
+		users.Get("/by-name/:username", c.UserController.FindByUsername)
+		users.Get("/by-email/:email", c.UserController.FindByEmail)
+	}
 }
