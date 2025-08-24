@@ -55,3 +55,54 @@ Tiap VM harus punya OS-nya masing-masing. Selain storage yang udah kepake sama a
 <p style="text-align: justify;">
   Jadi inti dari gambar ini, kita bakal ada 2 aplikasi yaitu Client dan Server. Dimana setiap perintah yang kita gunakan dalam Client Application, perintah tersebut akan dieksekusi di Docker Daemon (Server Application). Contohnya seperti membuat Container, Download Images, dan sebagainya.
 </p>
+
+### Docker Registry
+
+<ol>
+  <li>Apa itu Docker Registry? Ini adalah tempat kita menempatkan Docker Image.</li>
+  <li>Dengan Docker Registry, kita bisa menyimpan Docker Image yang kita buat atau bahkan Docker Image milik orang lain disini.</li>
+  <li>Docker Image yang ada di Docker Registry, nanti bisa di run oleh Docker Daemon kita.</li>
+</ol>
+
+<img width="886" height="575" alt="image" src="https://github.com/user-attachments/assets/64cdb7ba-b88b-4d99-9ec8-856ddef78f3a" />
+
+### Docker Image
+
+<ol>
+  <li>Docker Image itu mirip sama installer aplikasi, dimana dalam Docker Image ada aplikasi dan semua dependency yang dibutuhkan aplikasi tersebut.</li>
+  <li>Ini yang membedakan dengan VM, kalau VM ada aplikasi, OS, dan dependency, sementara Docker Image cuman ada aplikasi dan dependency-nya.</li>
+  <li>Cara lihat Docker Image di Server: <b>docker image ls</b></li>
+  <li>Cara download Docker Image dari Docker Registry (download redis image dari Docker Hub): <b>docker pull redis:latest</b></li>
+  <li>Cara menghapus Docker Image: <b>docker image rm nama-image:tag</b></li>
+</ol>  
+
+### Docker Container
+
+<ol>
+  <li>Kalau Docker Image itu installer aplikasi-nya, nah Docker Container ini adalah hasil dari installer aplikasi-nya, yaitu aplikasi-nya itu sendiri.</li>
+  <li>Berbeda dengan laptop kita yang kalau install aplikasi itu cuman 1 kali, kalau Docker berbeda.</li>
+  <li>Satu Docker Image itu bisa digunakan untuk membuat beberapa Docker Container, asalkan nama Docker Containernya berbeda.</li>
+  <li>Jadi misal, kita sebenernya bisa punya multiple Docker Image buat running Redis asalkan nama containernya berbeda.</li>
+  <li>Ketika kita sudah membuat Container, kita tidak bisa menghapus image-nya yang ada dalam Docker Container tersebut.</li>
+  <li>Ga kek aplikasi, kita bisa hapus installer aplikasinya tanpa menghapus aplikasinya.</li>
+  <li>Nah, kalau Docker Container, Docker Image yang merupakan installer aplikasinya, itu gabisa dihapus kecuali kita hapus Docker Containernya langsung.</li>
+  <li>Hal ini karena sebenernya Docker Container yang merupakan hasil dari installer aplikasi (Docker Image) itu tidak membuat copy hasil dari Docker Image tersebut melainkan tetap menggunakan isi dari Docker Imagenya.</li>
+  <li>Cara melihat Container yang ada dalam Docker Daemon: <b>docker container ls -a</b></li>
+  <li>Cara buat Docker Container: <b>docker container create --name namaContainer namaImage:tag</b></li>
+  <li>Cara run Docker Container: <b>docker container start namaContainer</b></li>
+  <li>Cara stop a running Docker Container: <b>docker container stop namaContainer</b></li>
+  <li>Cara menghapus Docker Container: <b>docker container rm namaContainer</b></li>
+  <li><b>Notes: semua ini bisa diatur pake Docker Dekstop jadi gaush pusing-pusing apalin ni command la ya...</b></li>
+  <li><b>Notes: port yang ada dalam sebuah Container, tidak akan mempengaruhi satu sama yang lain. Misal, docker container yang punya redis akan running di port 6379, tapi kita masih bisa menggunakan port tersebut di laptop kita tanpa harus khawatir port tersebut occupied.</b></li>
+</ol>
+
+#### Container Log
+
+<ol>
+  <li>Kadang saat terjadi masalah dengan aplikasi di Container, kita ingin melihat log dari aplikasinya.</li>
+  <li>Hal ini dilakukan untuk debugging atau melihat detail masalah dari aplikasi kita.</li>
+  <li>Caranya: <b>docker container logs namaContainer</b></li>
+  <li>Atau pake aja tu Docker Dekstop 😎</li>
+</ol>
+
+#### Container Exec
