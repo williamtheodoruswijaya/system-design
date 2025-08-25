@@ -194,3 +194,103 @@ mset budi "100" joko "200" ucok "300"
 </ol>
 
 ## Transaction
+
+<ol>
+  <li>Seperti database relational, redis memiliki fitur Transaction yaitu proses dimana ketika kita mengirim beberapa perintah, dan perintah tersebut dianggap sukses jika semua perintah yang dikirimkan itu sukses, jika salah satu gagal, maka semua perintah tersebut dibatalkan semuanya.</li>
+</ol>
+
+#### Operasi Transaction
+
+| Operasi  | Keterangan                                     |
+|----------|------------------------------------------------|
+| MULTI    | Mark the start of a transaction block          |
+| EXEC     | Execute all commands issued after MULTI        |
+| DISCARD  | Discard all commands issued after MULTI        |
+
+<ol>
+  <li>Multi disini menandakan awal mulai transaksi. Eksekusi-eksekusi selanjutnya setelah Multi ini tidak akan dimulai langsung.</li>
+  <li>Eksekusi dibawahnya akan menunggu dijalankan atau tidak dijalankan dengan command Exec/Discard.</li>
+  <li>Contoh:<br/><img width="421" height="238" alt="image" src="https://github.com/user-attachments/assets/a07e6692-3839-4a8d-aecd-8517cf1ff92c" /></li>
+  <li>Yang membedakan adalah, ketika kita menuliskan multi, semua command dibawahnya akan dimasukkan ke dalam queue dan tidak akan dijalankan sampai ada command exec.</li>
+  <li>Ini yang membedakan dengan transaction pada DB dimana ketika kita memulai transaction, command berikutnya akan dijalankan sampai ketika ada command yang gagal, baru command-command yang sebelumnya akan di rollback.</li>
+</ol>
+
+## Monitor
+
+<ol>
+  <li>Kadang ada kasus kita ingin melakukan debug aplikasi ketika sedang berkomunikasi dengan redis.</li>
+  <li>Misal, kita ingin melihat semua request yang masuk ke redis server.</li>
+  <li>Nah, itu kita bisa monitor dengan menggunakan fitur monitoring.</li>
+  <li>Dengan fitur ini, kita bisa mendebug ketika ada operasi yang salah ketika ke redis servernya.</li>
+  <li>Operasi monitornya itu sesimple: <br/><pre>monitor</pre></li>
+</ol>
+
+## Server Information
+
+<ol>
+  <li>Kadang kita butuh informasi/statistik dari server redis.</li>
+  <li>Seperti jumlah memory yang sudah terpakai, dan konfigurasi dari servernya.</li>
+  <li>Cara-nya: <pre>info</pre></li>
+  <li>Atau kalau mau dapet informasi statistic secara spesifik kita bisa pakai: <pre>config get key</pre></li>
+  <li>Contoh: <pre>config get databases</pre> akan mendapatkan informasi jumlah database yang didapat.</li>
+</ol>
+
+## Client Connection
+
+<ol>
+  <li>Redis menyimpan semua informasi client di server.</li>
+  <li>Hal ini memungkinkan kita untuk melihat daftar client yang terkoneksi, dan bahkan sampai mengecek anomali seperti terlalu banyak koneksi client ke server dsbnya.</li>
+  <li>Kita bisa pakai <b>client list</b> untuk mendapatkan list client yang terkoneksi ke server.</li>
+  <li>Kita bisa pakai <b>client id</b> untuk mendapatkan id dari client tersebut (ini biasa lanjutannya bakal kita kill)</li>
+  <li>Kita bisa pakai <b>client kill ip:port</b> untuk mematikan koneksi client ke server.</li>
+</ol>
+
+## Protected Mode
+
+<ol>
+  <li>Secara default, ketika kita menyalakan redis server, redis server itu akan mendengarkan request dari semua network interface (misal, ada yang konek dari localhost, VM, dsbnya).</li>
+  <li>Hal ini justru berbahaya karena membuat redis server bisa diakses darimanapun.</li>
+  <li>Untungnya redis punya second layer protection untuk pengecekan koneksi, yaitu mode protected.</li>
+  <li>Secara default, mode protectednya itu aktif yang artinya walaupun redis server bisa diakses darimanapun, tapi redis hanya mau menerima request dari localhost kita.</li>
+  <li>Coba aja pake 2 laptop yang ada redis, dah gitu coba konek ke redis server dari laptop yang berbeda dengan ip yang unik dari laptop tersebut, maka redis akan menolak koneksinya.</li>
+</ol>
+
+## Security
+
+#### Authentication
+
+<ol>
+  <li>Proses verifikasi identitas untuk memastikan bahwa yang mengakses redis server adalah identitas yang benar.</li>
+  <li>Redis memiliki fitur authentication, dan kita bisa menambahkan di file konfigurasi di server redis.</li>
+  <li>Proses authentication di redis sangat cepat, jadi pastikan password harus sulit biar susah di brute force.</li>
+</ol>
+
+#### Authorization
+
+<ol>
+  <li>Authorization adalah proses memberi hak akses terhadap identitas yang berhasil melewati proses authentication.</li>
+  <li>Pertama kita harus tentukan username dan password untuk authentication.</li>
+  <li>Setelah itu kita beri akses control terhadap username dan password tersebut untuk membatasi apa yang bisa username tersebut lakukan.</li>
+  <li>Commandnya ada banyak di dokumentasi kalau via redis cli.</li>
+  <li>Meskipun kedepannya kita bakal pakai redis client via Go, atau NodeJS, bagian-bagian ini cukup pahami teorinya aja.</li>
+</ol>
+
+## Persistence
+
+<ol>
+  <li>Media penyimpanan utama di redis itu memory/ram.</li>
+  <li>Tapi, kita bisa menyimpan data tersebut ke disk.</li>
+  <li>Tapi proses penyimpanannya ini ga realtime, tetapi dia melakukan secara periodic.</li>
+  <li>Oleh karena itu, jangan anggap redis sebagai tempat penyimpanan yang persistence karena proses menyimpan datanya yang bertahap.</li>
+</ol>
+
+## Eviction
+
+<ol>
+  <li>Ketika memory redis penuh, maka redis secara default akan reject semua request ketika kita melakukan penyimpanan data.</li>
+  <li>Hal ini mungkin akan menjadi masalah jika kita menggunakan redis sebagai caching saja.</li>
+  <li>Artinya data baru tidak akan bisa masuk.</li>
+  <li>Kadang akan sangat berguna jika memory penuh, redis bisa secara otomatis menghapus data yang sudah jarang digunakan.</li>
+  <li>Fitur ini adalah namanya Eviction dimana dia bisa menghapus data yang sudah mendekati expired.</li>
+  <li>Tapi, kita harus melakukan konfigurasi tambahan agar fitur ini bisa bekerja.</li>
+</ol>
