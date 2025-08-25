@@ -7,7 +7,7 @@
   <li>https://redis.io</li>
 </ol>
 
-### Apa itu Key-Value Database?
+#### Apa itu Key-Value Database?
 
 <ol>
   <li>Sebelumnya kita sering mendengar adanya database seperti Relational Database seperti SQL, tapi ada juga yang NoSQL seperti contohnya MongoDB yang berbasis Document.</li>
@@ -21,7 +21,7 @@
   <li>Intinya kita cuman bisa mengambil data yang disimpan di dalam Redis dengan menggunakan Key-nya.</li>
 </ol>
 
-### Apa itu Memory Database? Kenapa kita simpan datanya di Memory? Kenapa ga di Hardisk?
+#### Apa itu Memory Database? Kenapa kita simpan datanya di Memory? Kenapa ga di Hardisk?
 
 <ol>
   <li>Redis itu menyimpan data-nya di Memory (RAM), tapi kita bisa minta datanya secara permanen via Disk.</li>
@@ -33,7 +33,7 @@
 
 </ol>
 
-### Kapan Butuh Redis?
+#### Kapan Butuh Redis?
 
 <ol>
   <li>Saat kita membuat aplikasi secara pertama kali, itu biasanya kita ga langsung pakai Redis.</li>
@@ -56,7 +56,7 @@
   </li>
 </ol>
 
-### Cara Install
+#### Cara Install
 
 <ol>
   <li>Link: <b>https://redis.io/docs/getting-started/installation</b></li>
@@ -88,15 +88,109 @@
 <ol>
   <li>Redis mendukung banyak struktur data, salah satunya itu <b>Strings</b>.</li>
   <li>Tapi yang paling sering digunakan justru adalah <b>Strings</b></li>
+  <li>Tapi saya sendiri sering nyimpen `json` data di redis.</li>
 </ol>
 
 #### Operasi Data String
 
-| Operasi            | Keterangan                          |
-|--------------------|-------------------------------------|
-| `set key value`    | mengubah string value dari key      |
-| `get key`          | mendapatkan value menggunakan key   |
-| `exists key`       | mengecek apakah key memiliki value  |
-| `del key [key ...]`| menghapus menggunakan key           |
-| `append key value` | menambah data value ke key          |
-| `keys pattern`     | mencari key menggunakan patterns    |
+| Operasi            | Keterangan                                                                             |
+|--------------------|----------------------------------------------------------------------------------------|
+| `set key value`    | mengubah string value dari key                                                         |
+| `get key`          | mendapatkan value menggunakan key                                                      |
+| `exists key`       | mengecek apakah key memiliki value                                                     |
+| `del key [key ...]`| menghapus menggunakan key (kalau mau lebih dari satu tinggal kasih spasi aja)          |
+| `append key value` | menambah data value ke key (redis mirip hash table, 1 key bisa punya multiple value)   |
+| `keys pattern`     | mencari key menggunakan patterns                                                       |
+  
+#### Operasi Range Data Strings
+
+| Operasi                   | Keterangan                                                                                                                                          |
+|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `setrange key offset value`| mengubah value dari offset yang ditentukan, misal mengubah value yang posisinya ada di tengah-tengah (string berfungsi sebagai array of character, offset dianggap sebagai index) |
+| `getrange key start end`   | mengambil value dari range yang ditentukan, misal mengambil value dari awal ke tengah                                                               |
+
+#### Operasi Multiple Data Strings
+
+| Operasi                       | Keterangan                                                                                                                |
+|-------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| `mget key [key ...]`          | Get the values of all the given keys (kalau kita mau mengambil banyak value dari berbagai key)                            |
+| `mset key value [key value ...]` | Set multiple keys to multiple values (atau kalau mau mengubah banyak value dari banyak key secara sekaligus)              |
+
+**Notes:** `[key value ...]` artinya pasangan key dan value dipisahkan dengan spasi.<br/><br/>
+
+Contoh:  
+```bash
+mset budi "100" joko "200" ucok "300"
+```
+
+## Expiration
+
+<ol>
+  <li>Secara default, ketika kita menyimpan data ke redis, data tersebut akan terus berada di Redis sampai kita menghapusnya.</li>
+  <li>Kadang kita ingin menghapus data di redis secara otomatis dalam kurun waktu tertentu.</li>
+  <li>Contoh, kita mau menyimpan data cache tersebut dalam waktu 10 menit saja.</li>
+  <li>Setelah lewat 10 menit tersebut, data akan kembali disimpan di redis secara otomatis tetapi melalui query ulang ke database.</li>
+  <li>Kita bisa atur waktu expired-nya agar redis bisa menghapus data tersebut kalau sudah lewat waktu expire.</li>
+  <li>Contoh: <b>expire ini-key 10</b> artinya key yang bernama "ini-key" akan di delete setelah 10 detik. Ini digunakan ketika datanya sudah terlanjur ada di redis.</li>
+  <li>Kalau datanya belum ada di redis tapi kita ingin sekaligus mengatur expire time-nya, kita bisa dengan cara: <b>setex key seconds value</b>, contoh <b>setex ini-key 10 ini-value</b>, maka value dengan key "ini-key" akan dibuat di redis sekaligus akan di hapus setelah 10 detik.</li>
+  <li>Kita juga bisa cek time limit yang sebuah key-value miliki menggunakan command <b>ttl</b></li>
+</ol>
+
+## Increment & Decrement
+
+<ol>
+  <li>Operasi increment/menaikkan angka, atau decrement/menurunkan angka, itu sekilas mudah untuk dilakukan, kita tinggal perlu mengupdate data yang ada di redis dengan data yang baru (data lama ditambah 1).</li>
+  <li>Tapi kalau aplikasi kita rame, yang membuat operasi tersebut dilakukan secara paralel, maka hal ini dapat menyebabkan race condition.</li>
+  <li>Untungnya, redis memiliki operasi bawaan untuk melakukan increment/decrement yang secara otomatis menghandle race condition tersebut.</li>
+</ol>
+
+#### Operasi Increment & Decrement
+
+<ol>
+  <li>
+    Contoh Kode yang salah: <br/>
+    <pre><code class="language-js">
+    let value = await redis.get('key');
+    value = Number(value) + 1;
+    await redis.set('key' value);
+    </code></pre>
+    Hal ini jelas berbahaya karena bisa aja ada 2 user yang ingin mengupdate value dengan key yang sama.
+  </li>
+  <li>Cara handlenya sesimple <pre>incr key</pre> dengan syarat value yang disimpan dengan key tersebut harus bersifat angka/integer.</li>
+  <li><pre>decr key</pre> juga berfungsi sebaliknya</li>
+  <li>Tapi gimana kasusnya kalau kita ingin jumlahnya ga cuman 1 tapi lebih dari 1, misal, 2, 3, dstnya.</li>
+  <li>Nah, kita bisa pakai <pre>incrby key jumlah-increment</pre></li>
+  <li>Atau kalau mau decrement ya <pre>decrby key jumlah-decrement</pre></li>
+</ol>
+
+## Flush
+
+<ol>
+  <li>Gimana kalau kita ingin mengosongkan seluruh data di Redis?</li>
+  <li>Misal ada error yang mengharuskan kita untuk menghapus seluruh data yang ada di redis.</li>
+  <li>Nah, kita bisa pakai operasi flush.</li>
+  <li>Buat menghapus seluruh key yang ada di database yang sedang digunakan: <pre>flushdb</pre></li>
+  <li>Buat menghapus seluruh key yang ada di seluruh database baik yang sedang digunakan ataupun tidak digunakan: <pre>flushall</pre></li>
+</ol>
+
+## Pipeline
+
+<ol>
+  <li>Perintah yang dikirimkan dari client ke server, itu menggunakan request/response protocol.</li>
+  <li>Artinya setiap request yang dikirim, itu punya response yang bakal dibalas oleh redis secara langsung.</li>
+  <li>Gimana kalau kita perlu mengirim banyak data ke redis secara langsung?</li>
+  <li>Kalau kita ngirim secara satu per satu akan lambat karena akan mendapat respon secara satu per satu.</li>
+  <li>Nah untungnya redis bisa mengirim banyak data secara langsung, metode ini kita kenal dengan nama bulk insert.</li>
+  <li>Hal ini bisa diachieve dengan menggunakan operasi pipeline dimana kita bisa mengirim banyak data dalam 1 request.</li>
+  <li>Disadvantagesnya adalah server redis tidak akan membuat respon untuk setiap data yang masuk jika dikirim via pipeline.</li>
+  <li>Caranya kalau via redis-cli: 
+    <pre><code>
+      redis-cli -h host -p port -n database --pipe < file
+    </pre></code>
+  </li>
+  <li>
+    <img width="516" height="238" alt="image" src="https://github.com/user-attachments/assets/65f1751e-4d17-4c8b-82d5-35ee3246c48f" />
+  </li>
+</ol>
+
+## Transaction
