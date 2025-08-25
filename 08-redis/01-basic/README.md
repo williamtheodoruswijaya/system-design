@@ -292,5 +292,6 @@ mset budi "100" joko "200" ucok "300"
   <li>Artinya data baru tidak akan bisa masuk.</li>
   <li>Kadang akan sangat berguna jika memory penuh, redis bisa secara otomatis menghapus data yang sudah jarang digunakan.</li>
   <li>Fitur ini adalah namanya Eviction dimana dia bisa menghapus data yang sudah mendekati expired.</li>
-  <li>Tapi, kita harus melakukan konfigurasi tambahan agar fitur ini bisa bekerja.</li>
+  <li>Namun untuk mengaktifkan fitur ini, kita perlu memberi tahu redis, maximum memory yang boleh digunakan, dan bagaimana strategi untuk melakukan eviction nya
+.</li>
 </ol>
