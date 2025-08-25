@@ -314,3 +314,79 @@ Command-command penting lainnya bisa di cek disini: https://redis.io/commands/?g
 <img width="876" height="392" alt="image" src="https://github.com/user-attachments/assets/cecfff9e-b098-46e1-b4dc-3a378e0c28db" />
 
 ## Streams
+
+<img width="1282" height="499" alt="image" src="https://github.com/user-attachments/assets/9d33e305-27e7-4088-98d6-043ecf527765" />
+
+<ol>
+	<li>Streams adalah struktur data seperti Logs, dimana logs itu adalah struktur data dimana dia akan selalu bertambah di belakang (append-only).</li>
+	<li>Streams cocok untuk menyimpan data yang berurut.</li>
+	<li>Setiap data yang kita masukkan ke dalam Streams, Redis akan membuatkan id unik jika tidak kita tentukan id-nya.</li>
+	<li>Data yang kita masukkan ke dalam streams adalah data berupa key-value, seperti Hash.</li>
+	<li>Jadi 1 data dalam streams itu bentuknya seperti Hash.</li>
+	<li>Kalau bingung, anggap aja streams ini sebagai data struktur yang digunakan di Message Queue/Broker seperti Kafka/RabbitMQ.</li>
+	<li>Meskipun yang membedakan adalah tidak adanya topic/partition disini.</li>
+	<li>Namun mereka memiliki kesamaan dimana kalau di kafka, message queuenya itu juga punya atribut key dan value juga.</li>
+	<li>Sama, kalau mau lihat command-commandnya, ada disini: https://redis.io/commands/?group=stream</li>
+	<li>Contoh yang paling sering digunakan adalah cara kita menambahkan data ke dalam streams yaitu dengan menggunakan XADD.</li>
+	<li>Bisa juga kita baca data yang ada di dalam streams dengan menggunakan XREAD.</li>
+	<li>XACK juga kadang digunakan untuk menghitung ada berapa data yang ada di dalam logs/streams.</li>
+</ol>
+
+Misal, kita punya command seperti ini:
+```bash
+> xadd application.log * level "info" message "contoh info message" 		// * = id logs generate dari redis
+"1695553710429-0" 															// ID yang digenerate
+
+> xadd application.log * level "error" message "contoh error message"
+"1695553713722-0"
+
+> xadd application.log * level "warning" message "contoh warning message"
+"1695553716706-0"
+
+> xread streams application.log 0											// membaca seluruh data di streams
+1) 1) "1695553710429-0"
+   2) 1) "level"
+      2) "info"
+      3) "message"
+      4) "contoh info message"
+2) 1) "1695553713722-0"
+   2) 1) "level"
+      2) "error"
+      3) "message"
+      4) "contoh error message"
+3) 1) "1695553716706-0"
+   2) 1) "level"
+      2) "warning"
+      3) "message"
+      4) "contoh warning message"
+```
+Nah, nanti bentuk visualisasinya seperti ini:
+
+<img width="2952" height="553" alt="image" src="https://github.com/user-attachments/assets/a588d54c-6c2e-45e9-9bbc-42d6d4da94ae" />
+
+#### Masalah dengan Streams
+
+<ol>
+	<li>Saat kita membuat aplikasi, biasanya kita akan menjalankan di beberapa server, untuk menjaga high availability.</li>
+	<li>Apa yang terjadi jika misal kita membaca data dari Redis Stream ketika aplikasi kita berjalan di beberapa server?</li>
+	<li>Yang terjadi adalah, data yang sama akan dibaca oleh aplikasi di tiap server, artinya bisa terjadi duplikasi ketika kita membaca stream di aplikasi yang berjalan di beberapa server.</li>
+	<li>Misal, di consumer A dan consumer B menerima data yang sama untuk dimasukkan ke dalam database, alhasil akan terjadi konflik karena ada 2 buah data dengan primary key yang sama.</li>
+	<img width="2175" height="1069" alt="image" src="https://github.com/user-attachments/assets/ee244e3d-8247-4218-b946-39ed5a620933" />
+</ol>
+
+#### Consumer Group
+
+<ol>
+	<li>Consumer Group akan memastikan bahwa dalam 1 group, data hanya akan dikirim ke salah satu Consumer aja, sehingga tidak terjadi data di baca lebih dari satu kali oleh Consumer yang berbeda.</li>
+	<li>Artinya, dari 3 consumer, data hanya akan dikirimkan ke salah satu consumer aja.</li>
+	<li>Konsep ini sama kek yang di Kafka.</li>
+	<li>Cara buat Consumer Group di Redis Streams ini itu: <b>XGROUP CREATE</b>.</li>
+	<li>Dan cara kita membaca dari stream nya, kita tidak lagi menggunakan XREAD, tapi kita pakai <b>XREADGROUP</b>.</li>
+	<li>Contoh:<br/>
+		<pre><code>
+> xgroup create nama-stream nama-consumer-group $ mkstream					// mkstream itu untuk otomatis membuatkan stream yang belum ada
+> xgroup createconsumer nama-stream nama-consumer-group nama-consumer		// membuat consumer di dalam consumer group
+> xreadgroup group nama-consumer-group nama-consumer streams nama-stream >	// tanda > menandakan pembacaan data yang belum dibaca oleh consumer manapun.
+		</code></pre>
+	</li>
+</ol>
