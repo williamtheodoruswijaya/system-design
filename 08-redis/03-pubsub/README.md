@@ -56,7 +56,61 @@
 ## Channel
 
 <ol>
-  <li>Channel adalah sebutan untuk key yang digunakan di Redis PubSub.</li>
+  <li>Channel adalah sebutan untuk nama key yang digunakan di Redis PubSub.</li>
   <li>Channel/Key disini digunakan untuk mengirim dan menerima data di PubSub.</li>
-  <li></li>
+  <li>Publisher (pengirim data) akan mengirim data ke channel.</li>
+  <li>Subscriber (penerima data) akan menerima data dari channel.</li>
+  <li>Kita bisa membuat banyak nama channel di Redis PubSub.</li>
+  <li>Kalau di Kafka, kita sebut ini sebagai <b>topic</b>, nah kalau di Redis PubSub, kita sebut sebagai <b>Channel</b>.</li>
+</ol>
+
+<img width="1103" height="754" alt="image" src="https://github.com/user-attachments/assets/bbf31ca7-5ede-4ed7-b4ff-d4404f7b9def" />
+
+## Subscriber
+
+<ol>
+  <li>Pada Redis PubSub, ketika kita mengirim data ke sebuah channel/topic yang belum ada consumer/subscribernya, secara otomatis datanya akan hilang, oleh karena itu ada baiknya di awal kita menjalankan subscribernya terlebih dahulu.</li>
+  <li>Untuk membuat subscriber, kita bisa menggunakan perintah <b>SUBSCRIBE</b>.</li>
+  <li>Untuk menhentikan subscriber mendengarkan sebuah channel, kita bisa menggunakan perintah <b>UNSUBSCRIBE</b>.</li>
+  <li>
+    Cara penggunaannya kurang lebih seperti ini:
+    <br/>
+    <pre><code>
+      SUBSCRIBE channel [channel ...]            // ex.) SUBSCRIBE channel1 channel2 channel3 ...
+      UNSUBSCRIBE channel [channel ...]          // ex.) UNSUBSCRIBE channel1 channel2
+    </code></pre>
+  </li>
+  <li>Nama Channel meskipun belum ada akan otomatis dibuatkan jika kita menggunakan perintah SUBSCRIBE.</li>
+</ol>
+
+## Publisher
+
+<ol>
+  <li>Setelah menjalankan Subscriber, kita bisa membuat Publisher untuk mengirim data ke channel.</li>
+  <li>Untuk mendapatkan daftar channel yang ada, kita bisa menggunakan perintah <b>PUBSUB CHANNELS</b>.</li>
+  <li>Dan untuk mengirim message/data ke channel/topic, kita bisa menggunakan perintah <b>PUBLISH</b>.</li>
+  <li>
+    Cara Penggunaannya:
+    <br/>
+    <pre><code>
+      PUBLISH channel message                   // ex. ) PUBLISH channel1 "test"
+    </code></pre>
+  </li>
+</ol>
+
+## Limitation (Kekurangan menggunakan Redis PubSub sebagai Message Brokers) - Kafka's Better :P
+
+#### Delivery Semantics
+
+<ol>
+  <li>Redis PubSub mengirim data menggunakan at-most-once semantic, artinya paling banyak hanya dikirim 1 kali dan tidak berkali-kali dikirim.</li>
+  <li>Jika misal subscriber tidak mampu menangani data dengan baik, misal terjadi error. Maka Redis PubSub tidak akan bisa mengirimkan ulang data nya, datanya sudah hilang selamanya.</li>
+  <li>Oleh karena itu, jika aplikasi kita tidak ingin kehilangan data, atau ingin bisa melakukan pembacaan data ulang, maka lebih baik menggunakan Redis Streams, atau pakai Kafka aja langsung.</li>
+</ol>
+
+#### Broadcasts
+
+<ol>
+  <li>Redis PubSub menggunakan sistem broadcast, yang artinya saat dia mengirim data ke subscribernya, maka dia tidak peduli berapa banyak subscribernya, dan semua subscriber akan menerima data yang sama.</li>
+  <li>Jadi Redis PubSub tidak memiliki fitur Consumer Group.</li>
 </ol>
