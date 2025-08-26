@@ -60,11 +60,11 @@ func (c *RouteConfig) SetupGuestRoute() {
 }
 
 func (c *RouteConfig) SetupAuthRoute() {
-	// pakai auth-middleware disini
-	c.App.Use(middleware.Authenticate())
-
 	// lanjut routing api dibawah sini
 	api := c.App.Group("/api")
+
+	// pakai auth-middleware disini
+	api.Use(middleware.Authenticate())
 
 	users := api.Group("/users")
 	{
