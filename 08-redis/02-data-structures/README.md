@@ -307,7 +307,11 @@ Jadi, tetap aja susunan flownya itu selama dah paham CLInya sedikit-sedikit adal
 2. ZREMRANGEBYSCORE key -inf now-window
 3. ZCARD key
   
-Command-command penting lainnya bisa di cek disini: https://redis.io/commands/?group=sorted-set
+Command-command penting lainnya bisa di cek disini: https://redis.io/commands/?group=sorted-set  
+
+Penjelasan Command ZREMRANGEBYSCORE:
+
+<img width="1190" height="632" alt="image" src="https://github.com/user-attachments/assets/e8d0e264-c7b4-423b-a120-8bf4525fec6c" />
 
 ## Visualizations Checkpoints
 
