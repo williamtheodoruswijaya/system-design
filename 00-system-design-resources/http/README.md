@@ -58,6 +58,8 @@ Nah, kenapa HTTP sangat populer? Karena HTTP didesain menggunakan bahasa yang mu
 
 ### HTTP/1.1 vs HTTP/2
 
+<img width="1076" height="520" alt="image" src="https://github.com/user-attachments/assets/721f3979-ce21-4b1a-bc3a-976adedf734e" />
+
 <ol>
   <li>Saat ini HTTP/1.1 merupakan fallback protocol (kalau tidak support 2, maka baru pindah kesini), dimana Web Browser secara default akan melakukan request menggunakan HTTP/2, jika web server tidak mendukung, maka web browser akan melakukan fallback ke protocol HTTP/1.1</li>
   <li>Secara garis besar, spesifikasi HTTP/2 sama dengan HTTP/1.1, yang membedakan adalah pada HTTP/2, HTTP Request yang dikirim dalam bentuk teks, secara otomatis menjadi binary, sehingga lebih cepat dibandingkan HTTP/1.1</li>
