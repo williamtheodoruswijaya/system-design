@@ -24,6 +24,7 @@ public class CompositeCategory extends Category {
         this.list = list;
     }
 
+    @Override
     public void display(String indent) {
         System.out.println(indent + "+ " + this.getName());
         for (Category child : list) {

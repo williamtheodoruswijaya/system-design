@@ -1,4 +1,4 @@
-public class Category {
+public abstract class Category {
     private String name;
 
     public String getName() {
@@ -13,7 +13,5 @@ public class Category {
         this.name = name;
     }
 
-    public void display(String indent) {
-        System.out.println(indent + "- " + name);
-    }
+    public abstract void display(String indent);
 }
