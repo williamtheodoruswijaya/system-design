@@ -1,6 +1,6 @@
 # CAP Theorem
 
-<img width="951" height="792" alt="image" src="https://github.com/user-attachments/assets/f63ad419-3dc4-404f-a150-a92791e65ab1" />
+<img width="543" height="535" alt="image" src="https://github.com/user-attachments/assets/2faef11b-2424-4fd1-bbf5-26fc8744271d" />
 
 Ini adalah sebuah theorem yang mengatakan trade-off antara Consistency, Availability, dan Partition Tolerance. CAP Theorem basically says:<br/>
 > It is impossible for a distributed data store to simultaneously provide all three guarantees.
