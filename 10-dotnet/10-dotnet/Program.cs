@@ -1,4 +1,5 @@
 using _10_dotnet.Data;
+using _10_dotnet.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<DotNetDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DotNetConnectionString"));
 });
+builder.Services.AddScoped<IRegionRepository, RegionRepository>(); // Ini buat dependency injection dari repository layer ke semua application
 
 var app = builder.Build();
 
