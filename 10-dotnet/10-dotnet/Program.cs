@@ -1,6 +1,9 @@
 using _10_dotnet.Data;
+using _10_dotnet.Mappings;
+using _10_dotnet.Mappings;
 using _10_dotnet.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,7 @@ builder.Services.AddDbContext<DotNetDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DotNetConnectionString"));
 });
 builder.Services.AddScoped<IRegionRepository, RegionRepository>(); // Ini buat dependency injection dari repository layer ke semua application
+builder.Services.AddAutoMapper(config => {}, typeof(AutoMapperProfiles).Assembly);
 
 var app = builder.Build();
 

@@ -2,6 +2,7 @@
 using _10_dotnet.Models.Domain;
 using _10_dotnet.Models.DTO;
 using _10_dotnet.Repositories;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +15,11 @@ namespace _10_dotnet.Controllers
     {
         // Ini tempat buat Dependency Injection-nya nanti kalau kita butuh service, repository, dll. (termasuk DbContext)
         private readonly IRegionRepository regionRepository;
-        public RegionsController(IRegionRepository regionRepository) // DbContext-nya di-inject via constructor
+        private readonly IMapper mapper;
+        public RegionsController(IRegionRepository regionRepository, IMapper mapper) // DbContext-nya di-inject via constructor
         {
             this.regionRepository = regionRepository;
+            this.mapper = mapper;
         }
 
         [HttpGet]                       // Ini HTTP Method-nya ada [HttpPost], [HttpPut], [HttpDelete], dll. (Jadi, nanti cara akses-nya itu GET: https://localhost:portnumber/api/regions)
@@ -28,17 +31,18 @@ namespace _10_dotnet.Controllers
             var regions = await regionRepository.GetAllAsync();
 
             // step 2: map domain models to DTOs
-            var regionsDto = new List<RegionDto>();
-            foreach (var region in regions)
-            {
-                regionsDto.Add(new RegionDto()
-                {
-                    id = region.id,
-                    Code = region.Code,
-                    Name = region.Name,
-                    RegionImageUrl = region.RegionImageUrl
-                });
-            }
+            //var regionsDto = new List<RegionDto>();
+            //foreach (var region in regions)
+            //{
+            //    regionsDto.Add(new RegionDto()
+            //    {
+            //        id = region.id,
+            //        Code = region.Code,
+            //        Name = region.Name,
+            //        RegionImageUrl = region.RegionImageUrl
+            //    });
+            //}
+            var regionsDto = mapper.Map<List<RegionDto>>(regions);
 
             // step 3: return DTOs to client
             return Ok(regionsDto);                  // Ok() itu method dari ControllerBase yang nge-wrap response HTTP dengan status code 200
@@ -64,13 +68,14 @@ namespace _10_dotnet.Controllers
             }
 
             // step 2: map domain model to DTO
-            var regionDto = new RegionDto()
-            {
-                id = region.id,
-                Code = region.Code,
-                Name = region.Name,
-                RegionImageUrl = region.RegionImageUrl
-            };
+            //var regionDto = new RegionDto()
+            //{
+            //    id = region.id,
+            //    Code = region.Code,
+            //    Name = region.Name,
+            //    RegionImageUrl = region.RegionImageUrl
+            //};
+            var regionDto = mapper.Map<RegionDto>(region); // Intinya, Map<Destination>(Source)
 
             // step 3: return DTO to client
             return Ok(regionDto);
@@ -80,25 +85,27 @@ namespace _10_dotnet.Controllers
         public async Task<IActionResult> Create([FromBody] AddRegionRequestDto addRegionRequestDto) // buat ambil dari Body Request, kita pake [FromBody]
         {
             // step 1: map DTO to domain model
-            var regionDomainModel = new Region()
-            {
-                Code = addRegionRequestDto.Code,
-                Name = addRegionRequestDto.Name,
-                RegionImageUrl = addRegionRequestDto.RegionImageUrl
-            };
+            //var regionDomainModel = new Region()
+            //{
+            //    Code = addRegionRequestDto.Code,
+            //    Name = addRegionRequestDto.Name,
+            //    RegionImageUrl = addRegionRequestDto.RegionImageUrl
+            //};
+            var regionDomainModel = mapper.Map<Region>(addRegionRequestDto);
 
             // step 2: use domain model to create region (using DbContext or LINQ)
             // step 3: WAJIB! kalau di .NET, kita harus saveChanges() biar ke commit ke database
             regionDomainModel = await regionRepository.CreateAsync(regionDomainModel);
 
             // step 4: map created domain model to DTO
-            var regionDto = new RegionDto()
-            {
-                id = regionDomainModel.id,
-                Code = regionDomainModel.Code,
-                Name = regionDomainModel.Name,
-                RegionImageUrl = regionDomainModel.RegionImageUrl
-            };
+            //var regionDto = new RegionDto()
+            //{
+            //    id = regionDomainModel.id,
+            //    Code = regionDomainModel.Code,
+            //    Name = regionDomainModel.Name,
+            //    RegionImageUrl = regionDomainModel.RegionImageUrl
+            //};
+            var regionDto = mapper.Map<RegionDto>(regionDomainModel);
 
             // step 4: return created region to client
             return CreatedAtAction(nameof(GetById), new { id = regionDto.id }, regionDto);
@@ -118,12 +125,13 @@ namespace _10_dotnet.Controllers
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateRegionRequestDto regionRequestDto)
         {
             // step 0: map DTO to domain model
-            var regionDomainModel = new Region()
-            {
-                Code = regionRequestDto.Code,
-                Name = regionRequestDto.Name,
-                RegionImageUrl = regionRequestDto.RegionImageUrl
-            };
+            //var regionDomainModel = new Region()
+            //{
+            //    Code = regionRequestDto.Code,
+            //    Name = regionRequestDto.Name,
+            //    RegionImageUrl = regionRequestDto.RegionImageUrl
+            //};
+            var regionDomainModel = mapper.Map<Region>(regionRequestDto);
 
             // step 1: cari region yang mau di-update
             // step 2: update region yang ditemukan dengan data dari DTO
@@ -131,13 +139,7 @@ namespace _10_dotnet.Controllers
             var updatedRegion = await regionRepository.UpdateAsync(id, regionDomainModel);
 
             // step 4: map updated domain model to DTO
-            var regionDto = new RegionDto()
-            {
-                id = updatedRegion.id,
-                Code = updatedRegion.Code,
-                Name = updatedRegion.Name,
-                RegionImageUrl = updatedRegion.RegionImageUrl
-            };
+            var regionDto = mapper.Map<RegionDto>(updatedRegion);
 
             // step 5: return updated region to client
             return Ok(regionDto);

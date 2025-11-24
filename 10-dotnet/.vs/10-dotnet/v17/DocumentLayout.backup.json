@@ -3,52 +3,16 @@
   "WorkspaceRootPath": "D:\\Project\\system-design\\10-dotnet\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\repositories\\regionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\repositories\\regionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\repositories\\iregionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\repositories\\iregionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\controllers\\regionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\controllers\\regionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\mappings\\automapperprofiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\mappings\\automapperprofiles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\models\\dto\\regiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\models\\dto\\regiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\models\\dto\\updateregionrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\models\\dto\\updateregionrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\models\\dto\\addregionrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\models\\dto\\addregionrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\data\\dotnetdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\data\\dotnetdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\models\\domain\\walk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\models\\domain\\walk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\models\\domain\\difficulty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\models\\domain\\difficulty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,156 +22,44 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Program.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Program.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Program.cs",
-              "RelativeToolTip": "10-dotnet\\Program.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABcAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T16:13:00.682Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "RegionRepository.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Repositories\\RegionRepository.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Repositories\\RegionRepository.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Repositories\\RegionRepository.cs",
-              "RelativeToolTip": "10-dotnet\\Repositories\\RegionRepository.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAcwA4AAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T15:39:45.678Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "IRegionRepository.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Repositories\\IRegionRepository.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Repositories\\IRegionRepository.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Repositories\\IRegionRepository.cs",
-              "RelativeToolTip": "10-dotnet\\Repositories\\IRegionRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T15:37:19.877Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "RegionDto.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\DTO\\RegionDto.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Models\\DTO\\RegionDto.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\DTO\\RegionDto.cs",
-              "RelativeToolTip": "10-dotnet\\Models\\DTO\\RegionDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T11:30:50.48Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "RegionsController.cs",
               "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Controllers\\RegionsController.cs",
               "RelativeDocumentMoniker": "10-dotnet\\Controllers\\RegionsController.cs",
               "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Controllers\\RegionsController.cs",
               "RelativeToolTip": "10-dotnet\\Controllers\\RegionsController.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAQwJ8AAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAIwIgAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T10:31:29.444Z",
+              "WhenOpened": "2025-11-24T16:43:44.439Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "UpdateRegionRequestDto.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\DTO\\UpdateRegionRequestDto.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Models\\DTO\\UpdateRegionRequestDto.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\DTO\\UpdateRegionRequestDto.cs",
-              "RelativeToolTip": "10-dotnet\\Models\\DTO\\UpdateRegionRequestDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAoAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Program.cs",
+              "RelativeDocumentMoniker": "10-dotnet\\Program.cs",
+              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Program.cs",
+              "RelativeToolTip": "10-dotnet\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T11:47:48.536Z"
+              "WhenOpened": "2025-11-24T16:36:40.963Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AddRegionRequestDto.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\DTO\\AddRegionRequestDto.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Models\\DTO\\AddRegionRequestDto.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\DTO\\AddRegionRequestDto.cs",
-              "RelativeToolTip": "10-dotnet\\Models\\DTO\\AddRegionRequestDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAIAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "AutoMapperProfiles.cs",
+              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Mappings\\AutoMapperProfiles.cs",
+              "RelativeDocumentMoniker": "10-dotnet\\Mappings\\AutoMapperProfiles.cs",
+              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Mappings\\AutoMapperProfiles.cs",
+              "RelativeToolTip": "10-dotnet\\Mappings\\AutoMapperProfiles.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-24T11:30:47.615Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "DotNetDbContext.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Data\\DotNetDbContext.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Data\\DotNetDbContext.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Data\\DotNetDbContext.cs",
-              "RelativeToolTip": "10-dotnet\\Data\\DotNetDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-23T16:49:45.172Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Walk.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\Domain\\Walk.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Models\\Domain\\Walk.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\Domain\\Walk.cs",
-              "RelativeToolTip": "10-dotnet\\Models\\Domain\\Walk.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-23T16:29:08.164Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Difficulty.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\Domain\\Difficulty.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Models\\Domain\\Difficulty.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\Domain\\Difficulty.cs",
-              "RelativeToolTip": "10-dotnet\\Models\\Domain\\Difficulty.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-23T16:25:03.063Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "StudentsController.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Controllers\\StudentsController.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Controllers\\StudentsController.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Controllers\\StudentsController.cs",
-              "RelativeToolTip": "10-dotnet\\Controllers\\StudentsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-23T16:05:04.075Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "WeatherForecastController.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Controllers\\WeatherForecastController.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Controllers\\WeatherForecastController.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Controllers\\WeatherForecastController.cs",
-              "RelativeToolTip": "10-dotnet\\Controllers\\WeatherForecastController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-23T16:01:15.486Z"
+              "WhenOpened": "2025-11-24T16:26:58.463Z"
             }
           ]
         }
