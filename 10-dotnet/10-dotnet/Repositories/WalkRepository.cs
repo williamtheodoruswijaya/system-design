@@ -21,13 +21,13 @@ namespace _10_dotnet.Repositories
 
         public async Task<List<Walk>> GetAllAsync()
         {
-            var walks = await dbContext.Walks.ToListAsync();
-            return walks;
+            return await dbContext.Walks.Include("Difficulty").Include("Region").ToListAsync(); // .Include() basically performs a join operation between the related tables
+                                                                                                // Kalau mau type-safe bisa pake x => x.Difficulty dan x => x.Region
         }
 
         public async Task<Walk?> GetByIdAsync(Guid id)
         {
-            return await dbContext.Walks.FirstOrDefaultAsync(w => w.id == id);
+            return await dbContext.Walks.Include("Difficulty").Include("Region").FirstOrDefaultAsync(w => w.id == id);
         }
     }
 }

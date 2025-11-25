@@ -32,7 +32,7 @@ namespace _10_dotnet.Controllers
             var createdWalkDto = mapper.Map<WalkDto>(createdWalk);
 
             // step 4: return response
-            return CreatedAtAction(nameof(GetById), new { id = createdWalkDto.id }, createdWalk);
+            return CreatedAtAction(nameof(GetById), new { id = createdWalkDto.id }, createdWalkDto);
         }
 
         [HttpGet]
