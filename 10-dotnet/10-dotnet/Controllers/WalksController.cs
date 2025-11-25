@@ -61,5 +61,41 @@ namespace _10_dotnet.Controllers
             // step 3: return response
             return Ok(walkDtos);
         }
+
+        [HttpPut]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateWalkRequestDto updateWalkRequestDto)
+        {
+            // step 1: map DTO to domain model
+            var walkDomainModel = mapper.Map<Walk>(updateWalkRequestDto);
+
+            // step 2: update domain model in database
+            walkDomainModel = await walkRepository.UpdateAsync(id, walkDomainModel);
+            if (walkDomainModel == null)
+            {
+                return NotFound();
+            }
+
+            // step 3: map updated domain model to DTO
+            var updatedWalkDto = mapper.Map<WalkDto>(walkDomainModel);
+
+            // step 4: return response
+            return Ok(updatedWalkDto);
+        }
+
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            // step 1: delete domain model from database
+            var walkDomainModel = await walkRepository.DeleteAsync(id);
+            if (walkDomainModel == null)
+            {
+                return NotFound();
+            }
+            
+            // step 2: return response
+            return Ok();
+        }
     }
 }
