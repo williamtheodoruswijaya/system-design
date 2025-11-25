@@ -1,4 +1,5 @@
-﻿using _10_dotnet.Models.Domain;
+﻿using _10_dotnet.CustomActionFilters;
+using _10_dotnet.Models.Domain;
 using _10_dotnet.Models.DTO;
 using _10_dotnet.Repositories;
 using AutoMapper;
@@ -20,6 +21,7 @@ namespace _10_dotnet.Controllers
         }
 
         [HttpPost]
+        [ValidateModel]
         public async Task<IActionResult> Create([FromBody] AddWalkRequestDto addWalkRequestDto)
         {
             // step 1: map DTO to domain model
@@ -64,6 +66,7 @@ namespace _10_dotnet.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [ValidateModel]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateWalkRequestDto updateWalkRequestDto)
         {
             // step 1: map DTO to domain model

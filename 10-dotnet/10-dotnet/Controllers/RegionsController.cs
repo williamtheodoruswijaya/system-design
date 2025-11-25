@@ -1,4 +1,5 @@
-﻿using _10_dotnet.Data;
+﻿using _10_dotnet.CustomActionFilters;
+using _10_dotnet.Data;
 using _10_dotnet.Models.Domain;
 using _10_dotnet.Models.DTO;
 using _10_dotnet.Repositories;
@@ -82,6 +83,7 @@ namespace _10_dotnet.Controllers
         }
 
         [HttpPost]
+        [ValidateModel]
         public async Task<IActionResult> Create([FromBody] AddRegionRequestDto addRegionRequestDto) // buat ambil dari Body Request, kita pake [FromBody]
         {
             // step 1: map DTO to domain model
@@ -122,6 +124,7 @@ namespace _10_dotnet.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [ValidateModel]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateRegionRequestDto regionRequestDto)
         {
             // step 0: map DTO to domain model
