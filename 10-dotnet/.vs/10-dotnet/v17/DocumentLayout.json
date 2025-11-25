@@ -3,32 +3,16 @@
   "WorkspaceRootPath": "D:\\Project\\system-design\\10-dotnet\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\models\\dto\\updatewalkrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\models\\dto\\updatewalkrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\models\\dto\\updateregionrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\models\\dto\\updateregionrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\models\\dto\\addwalkrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\models\\dto\\addwalkrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\controllers\\walkscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\controllers\\walkscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\customactionfilters\\validatemodelattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\customactionfilters\\validatemodelattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\repositories\\iwalkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\repositories\\iwalkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\controllers\\regionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\controllers\\regionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\models\\dto\\walkdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\models\\dto\\walkdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\repositories\\walkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\repositories\\walkrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -43,89 +27,41 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AddWalkRequestDto.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\DTO\\AddWalkRequestDto.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Models\\DTO\\AddWalkRequestDto.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\DTO\\AddWalkRequestDto.cs",
-              "RelativeToolTip": "10-dotnet\\Models\\DTO\\AddWalkRequestDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAAAvAAAAAAAAAA==",
+              "Title": "WalkRepository.cs",
+              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Repositories\\WalkRepository.cs",
+              "RelativeDocumentMoniker": "10-dotnet\\Repositories\\WalkRepository.cs",
+              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Repositories\\WalkRepository.cs",
+              "RelativeToolTip": "10-dotnet\\Repositories\\WalkRepository.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAwwEgAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T08:32:29.284Z",
+              "WhenOpened": "2025-11-25T17:28:55.203Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "UpdateRegionRequestDto.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\DTO\\UpdateRegionRequestDto.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Models\\DTO\\UpdateRegionRequestDto.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\DTO\\UpdateRegionRequestDto.cs",
-              "RelativeToolTip": "10-dotnet\\Models\\DTO\\UpdateRegionRequestDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "IWalkRepository.cs",
+              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Repositories\\IWalkRepository.cs",
+              "RelativeDocumentMoniker": "10-dotnet\\Repositories\\IWalkRepository.cs",
+              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Repositories\\IWalkRepository.cs",
+              "RelativeToolTip": "10-dotnet\\Repositories\\IWalkRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T08:32:26.939Z",
+              "WhenOpened": "2025-11-25T17:28:18.246Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UpdateWalkRequestDto.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\DTO\\UpdateWalkRequestDto.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Models\\DTO\\UpdateWalkRequestDto.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\DTO\\UpdateWalkRequestDto.cs",
-              "RelativeToolTip": "10-dotnet\\Models\\DTO\\UpdateWalkRequestDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T08:32:21.166Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "RegionsController.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Controllers\\RegionsController.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Controllers\\RegionsController.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Controllers\\RegionsController.cs",
-              "RelativeToolTip": "10-dotnet\\Controllers\\RegionsController.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAgwFYAAACZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T08:28:27.029Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ValidateModelAttribute.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\CustomActionFilters\\ValidateModelAttribute.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\CustomActionFilters\\ValidateModelAttribute.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\CustomActionFilters\\ValidateModelAttribute.cs",
-              "RelativeToolTip": "10-dotnet\\CustomActionFilters\\ValidateModelAttribute.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T08:26:28.941Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "WalksController.cs",
               "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Controllers\\WalksController.cs",
               "RelativeDocumentMoniker": "10-dotnet\\Controllers\\WalksController.cs",
               "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Controllers\\WalksController.cs",
               "RelativeToolTip": "10-dotnet\\Controllers\\WalksController.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAEYAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T06:38:42.529Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "WalkDto.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\DTO\\WalkDto.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Models\\DTO\\WalkDto.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Models\\DTO\\WalkDto.cs",
-              "RelativeToolTip": "10-dotnet\\Models\\DTO\\WalkDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-25T07:45:47.777Z"
+              "WhenOpened": "2025-11-25T06:38:42.529Z",
+              "EditorCaption": ""
             }
           ]
         }

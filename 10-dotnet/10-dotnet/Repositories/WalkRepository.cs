@@ -19,13 +19,59 @@ namespace _10_dotnet.Repositories
             return walk;
         }
 
-        public async Task<List<Walk>> GetAllAsync()
+        public async Task<List<Walk>> GetAllAsync(
+            string? filterOn = null, 
+            string? filterQuery = null, 
+            string? sortBy = null, 
+            bool isAscending = true,
+            int pageNumber = 1,
+            int pageSize = 1000
+            )
         {
-            return await dbContext.Walks
+            //return await dbContext.Walks
+            //    .Include("Difficulty")
+            //    .Include("Region")
+            //    .ToListAsync(); 
+            // .Include() basically performs a join operation between the related tables   
+            // Kalau mau type-safe bisa pake x => x.Difficulty dan x => x.Region
+
+            // Apply filtering by adding .AsQueryable() first (biar bisa nambahin .Where)
+            var walks = dbContext.Walks
                 .Include("Difficulty")
                 .Include("Region")
-                .ToListAsync(); 
-            // .Include() basically performs a join operation between the related tables                                                                               // Kalau mau type-safe bisa pake x => x.Difficulty dan x => x.Region
+                .AsQueryable();
+
+            // Filtering
+            if (!string.IsNullOrWhiteSpace(filterOn) && !string.IsNullOrWhiteSpace(filterQuery))
+            {
+                if (filterOn.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    walks = walks.Where(w => w.Name.Contains(filterQuery));
+                }
+                else if (filterOn.Equals("Description", StringComparison.OrdinalIgnoreCase))
+                {
+                    walks = walks.Where(w => w.Description.Contains(filterQuery)); // basically SQL LIKE '%filterQuery%'
+                }
+            }
+
+            // Sorting
+            if (!string.IsNullOrWhiteSpace(sortBy))
+            {
+                if (sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    walks = isAscending ? walks.OrderBy(w => w.Name) : walks.OrderByDescending(w => w.Name);
+                }
+                else if (sortBy.Equals("Length", StringComparison.OrdinalIgnoreCase))
+                {
+                    walks = isAscending ? walks.OrderBy(w => w.LengthInKm) : walks.OrderByDescending(w => w.LengthInKm);
+                }
+            }
+
+            // Pagination
+            // Basically skip the records before the current page
+            var skipResults = (pageNumber - 1) * pageSize;
+            
+            return await walks.Skip(skipResults).Take(pageSize).ToListAsync();
         }
 
         public async Task<Walk?> GetByIdAsync(Guid id)

@@ -52,10 +52,24 @@ namespace _10_dotnet.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(
+            [FromQuery] string? filterOn, 
+            [FromQuery] string? filterQuery,
+            [FromQuery] string? sortBy, 
+            [FromQuery] bool? isAscending,
+            [FromQuery] int? pageNumber,
+            [FromQuery] int? pageSize
+            ) // basically jadinya /api/walks?filterOn=Name&filterQuery=Track&sortBy=Name&isAscending=true&pageNumber=1&pageSize=10
         {
             // step 1: get domain models from database
-            var walkDomainModels = await walkRepository.GetAllAsync();
+            var walkDomainModels = await walkRepository.GetAllAsync(
+                filterOn, 
+                filterQuery, 
+                sortBy, 
+                isAscending ?? true,    // if isAscending is null, default to true
+                pageNumber ?? 1,        // if pageNumber is null, default to 1
+                pageSize ?? 1000        // if pageSize is null, default to 1000
+                ); 
 
             // step 2: map domain models to DTOs
             var walkDtos = mapper.Map<List<WalkDto>>(walkDomainModels);
