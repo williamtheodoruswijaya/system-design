@@ -14,6 +14,8 @@ namespace _10_dotnet.Mappings
             
             CreateMap<Region, AddRegionRequestDto>().ReverseMap();
             CreateMap<Region, UpdateRegionRequestDto>().ReverseMap();
+            CreateMap<Walk, AddWalkRequestDto>().ReverseMap();
+            CreateMap<Walk, WalkDto>().ReverseMap();
         }
     }
 }
