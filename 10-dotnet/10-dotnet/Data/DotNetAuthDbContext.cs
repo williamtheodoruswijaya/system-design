@@ -43,6 +43,15 @@ namespace _10_dotnet.Data
              * Cara Execute-nya:
              * 1. Add-Migration "Nama Message Migration" -Context "Nama DbContext yang mau di migrasi"
              * 2. Update-Database -Context "Nama DbContext yang mau di migrasi"
+             * 
+             * 
+             * Notes:
+             * Ini kita pakai IdentityRole buat seeding. Nah ini tuh apa?
+             * Basically, IdentityRole itu adalah class yang sudah disediakan oleh ASP.NET Core Identity buat meng-handle role management.
+             * Caranya, dia buat table-table di Database baru (Sesuai sama DbContext yang kita pake)
+             * Dan tabel-tabel yang dia buat tuh, ada:
+             *  - AspNetRoles      : Menyimpan daftar nama role (contoh: "Admin", "User", "Mitra").
+             *  - AspNetUserRoles  : Tabel penghubung (Junction Table) many-to-many
              */
         }
     }

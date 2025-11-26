@@ -13,7 +13,7 @@ namespace _10_dotnet.Controllers
 {
     [Route("api/[controller]")] // ini sama aja kayak "api/regions"
     [ApiController]
-    [Authorize] // ini cara pake JWT Authentication di controller level (bisa juga di action level -> ditaro per-function)
+    //[Authorize] // ini cara pake JWT Authentication di controller level (bisa juga di action level -> ditaro per-function)
     public class RegionsController : ControllerBase
     {
         // Ini tempat buat Dependency Injection-nya nanti kalau kita butuh service, repository, dll. (termasuk DbContext)
@@ -26,6 +26,7 @@ namespace _10_dotnet.Controllers
         }
 
         [HttpGet]                       // Ini HTTP Method-nya ada [HttpPost], [HttpPut], [HttpDelete], dll. (Jadi, nanti cara akses-nya itu GET: https://localhost:portnumber/api/regions)
+        [Authorize(Roles = "Reader,Writer")]
         public async Task<IActionResult> GetAll()   // IActionResult itu return type khusus buat controller (Mirip kek kalau di NestJS/Golang Application, kita state response HTTP-nya dalam bentuk WebResponse<T>
                                                     // Kalau async, return type-nya harus di dalam Task<T>
                                                     // Function-function DbContext juga tinggal kasih keyword "await" dan cari yang versi Async-nya.
@@ -55,6 +56,7 @@ namespace _10_dotnet.Controllers
         [Route("{id:guid}")] // Ini contoh jenis Route dengan parameter.
                              // GET: https://localhost:portnumber/api/regions/{id}
                              // Sebenernya mau kode-nya [Route("{id}")] aja juga bisa dan aman aja
+        [Authorize(Roles = "Reader,Writer")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             // step 1: get data from database - Domain Models
@@ -86,6 +88,7 @@ namespace _10_dotnet.Controllers
 
         [HttpPost]
         [ValidateModel]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> Create([FromBody] AddRegionRequestDto addRegionRequestDto) // buat ambil dari Body Request, kita pake [FromBody]
         {
             // step 1: map DTO to domain model
@@ -127,6 +130,7 @@ namespace _10_dotnet.Controllers
         [HttpPut]
         [Route("{id:guid}")]
         [ValidateModel]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateRegionRequestDto regionRequestDto)
         {
             // step 0: map DTO to domain model
@@ -152,6 +156,7 @@ namespace _10_dotnet.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             // step 1: find existing region that want to delete

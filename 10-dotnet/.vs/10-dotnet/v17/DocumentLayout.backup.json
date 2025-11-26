@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "D:\\Project\\system-design\\10-dotnet\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\data\\dotnetauthdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\data\\dotnetauthdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\data\\dotnetdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\data\\dotnetdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\repositories\\tokenrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\repositories\\tokenrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|d:\\project\\system-design\\10-dotnet\\10-dotnet\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F7546D64-C729-490E-AE71-005DA0444598}|10-dotnet\\10-dotnet.csproj|solutionrelative:10-dotnet\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DotNetDbContext.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Data\\DotNetDbContext.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Data\\DotNetDbContext.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Data\\DotNetDbContext.cs",
-              "RelativeToolTip": "10-dotnet\\Data\\DotNetDbContext.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAcwAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Program.cs",
+              "RelativeDocumentMoniker": "10-dotnet\\Program.cs",
+              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Program.cs",
+              "RelativeToolTip": "10-dotnet\\Program.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAACIAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-26T04:53:51.052Z",
+              "WhenOpened": "2025-11-26T10:47:53.065Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DotNetAuthDbContext.cs",
-              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Data\\DotNetAuthDbContext.cs",
-              "RelativeDocumentMoniker": "10-dotnet\\Data\\DotNetAuthDbContext.cs",
-              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Data\\DotNetAuthDbContext.cs",
-              "RelativeToolTip": "10-dotnet\\Data\\DotNetAuthDbContext.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAADwvywAAABPAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "TokenRepository.cs",
+              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Repositories\\TokenRepository.cs",
+              "RelativeDocumentMoniker": "10-dotnet\\Repositories\\TokenRepository.cs",
+              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Repositories\\TokenRepository.cs",
+              "RelativeToolTip": "10-dotnet\\Repositories\\TokenRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-26T04:42:28.709Z",
+              "WhenOpened": "2025-11-26T09:38:21.045Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "10-dotnet\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "10-dotnet\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAwFYAAABlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-26T09:09:46.277Z",
               "EditorCaption": ""
             }
           ]
