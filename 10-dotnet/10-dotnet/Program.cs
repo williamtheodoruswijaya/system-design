@@ -22,6 +22,10 @@ builder.Services.AddDbContext<DotNetDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DotNetConnectionString"));
 });
+builder.Services.AddDbContext<DotNetAuthDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DotNetAuthConnectionString"));
+});
 builder.Services.AddScoped<IRegionRepository, RegionRepository>(); // Ini buat dependency injection dari repository layer ke semua application
 builder.Services.AddScoped<IWalkRepository, WalkRepository>();
 builder.Services.AddAutoMapper(config => {}, typeof(AutoMapperProfiles).Assembly);

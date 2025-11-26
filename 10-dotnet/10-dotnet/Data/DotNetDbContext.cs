@@ -19,7 +19,7 @@ namespace _10_dotnet.Data
          * Q: kenapa harus ada constructor ini?
          * A: Karena DbContext butuh options untuk konfigurasi koneksi database, provider database, dll. Yang bisa diatur di DbContextOptions dan di Inject di Main kita yaitu di Program.cs
          */
-        public DotNetDbContext(DbContextOptions dbContextOptions): base(dbContextOptions)
+        public DotNetDbContext(DbContextOptions<DotNetDbContext> dbContextOptions): base(dbContextOptions)
         {
             
         }
