@@ -32,7 +32,7 @@
               "RelativeDocumentMoniker": "10-dotnet\\Program.cs",
               "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Program.cs",
               "RelativeToolTip": "10-dotnet\\Program.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAAACIAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAADoAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-26T10:47:53.065Z",
               "EditorCaption": ""
@@ -45,7 +45,7 @@
               "RelativeDocumentMoniker": "10-dotnet\\Repositories\\TokenRepository.cs",
               "ToolTip": "D:\\Project\\system-design\\10-dotnet\\10-dotnet\\Repositories\\TokenRepository.cs",
               "RelativeToolTip": "10-dotnet\\Repositories\\TokenRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowCoAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-26T09:38:21.045Z",
               "EditorCaption": ""
@@ -60,8 +60,7 @@
               "RelativeToolTip": "10-dotnet\\Controllers\\AuthController.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAwFYAAABlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-26T09:09:46.277Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-26T09:09:46.277Z"
             }
           ]
         }

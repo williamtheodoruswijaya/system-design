@@ -57,9 +57,13 @@ builder.Services.AddDbContext<DotNetAuthDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DotNetAuthConnectionString"));
 });
-builder.Services.AddScoped<IRegionRepository, RegionRepository>(); // Ini buat dependency injection dari repository layer ke semua application
+
+// Dependency Injection for Repositories (biar bisa diakses semua class/controller)
+builder.Services.AddScoped<IRegionRepository, RegionRepository>();
 builder.Services.AddScoped<IWalkRepository, WalkRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+
+// Dependency Injection buat AutoMapper Services
 builder.Services.AddAutoMapper(config => {}, typeof(AutoMapperProfiles).Assembly);
 
 // Dependency Injection for Identity Core Services (Nanti Login & Register bakal pakai services ini)
