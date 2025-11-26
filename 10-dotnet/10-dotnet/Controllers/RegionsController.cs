@@ -4,6 +4,7 @@ using _10_dotnet.Models.Domain;
 using _10_dotnet.Models.DTO;
 using _10_dotnet.Repositories;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ namespace _10_dotnet.Controllers
 {
     [Route("api/[controller]")] // ini sama aja kayak "api/regions"
     [ApiController]
+    [Authorize] // ini cara pake JWT Authentication di controller level (bisa juga di action level -> ditaro per-function)
     public class RegionsController : ControllerBase
     {
         // Ini tempat buat Dependency Injection-nya nanti kalau kita butuh service, repository, dll. (termasuk DbContext)
