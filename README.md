@@ -1,29 +1,92 @@
-# Software & System Design Implementation with Go
+# Hands-On System Design & Microservices Architecture
 
-Welcome to my learning journey repository! This repository is dedicated to my process of learning **backend development** using **Go (Golang)** programming language, as well as implementing various **system design** theories.
+This repository contains a collection of hands-on projects exploring **system design, distributed systems, software architecture, and microservices**.
+Each section demonstrates a specific concept through practical implementation rather than theory.
 
-## 🎯 Purpose & Motivation
+Technologies covered include:
 
-This repository focuses on two primary areas:
+* **Go (Golang)**
+* **.NET**
+* **Docker**
+* **Kafka**
+* **Redis**
+* **ElasticSearch**
+* **DDD & Clean Architecture**
+* **Software Design Patterns**
 
-1.  **Mastering Golang:** Learning the ins and outs of Go, from fundamental concepts like goroutines and channels to using its ecosystem of frameworks and libraries to build efficient services.
-2.  **System Design Implementation:** Translating theoretical system design concepts—such as Clean Architecture, Message Queues, and Caching—into practical, working code.
-
-The repository here serve as my playground to experiment and understand how each architectural component works before integrating them into more complex systems.
-
-## ✨ Practical Implementation: Mood Bridge V2
-
-As a tangible application of the concepts learned here, I have implemented the **Clean Architecture** pattern in another project. This architecture helps in decoupling business logic from technical details, making the application easier to maintain, test, and scale.
-
-You can view the implementation in the following repository:
-➡️ **[https://github.com/williamtheodoruswijaya/mood-bridge-v2](https://github.com/williamtheodoruswijaya/mood-bridge-v2)**
+---
 
 ## 📂 Repository Structure
 
-This repository contains a collection of projects and notes, each housed in its own directory. You will find two main types of content:
+| Folder                     | Description                                                        |
+| -------------------------- | ------------------------------------------------------------------ |
+| `01-clean-architecture-go` | Applying Clean Architecture in Go.                                 |
+| `02-kafka`                 | Learning Kafka with producer/consumer implementation in Go.        |
+| `03-goroutines`            | Exploring concurrency using Goroutines and Channels.               |
+| `04-golang-context`        | Practical use cases of the `context` package in Go.                |
+| `05-fiber`                 | Building APIs using Fiber framework in Go.                         |
+| `06-ddd-implementation`    | Domain-Driven Design applied to a real example.                    |
+| `07-docker`                | Dockerization examples and deployment basics.                      |
+| `08-redis`                 | Using Redis for caching and distributed storage.                   |
+| `09-elastic-search`        | Integrating and querying ElasticSearch.                            |
+| `10-dotnet`                | Architectural implementation using .NET, including authentication. |
+| `design-pattern`           | A collection of commonly used software design patterns.            |
+| `microservices`            | Examples of microservice-based architecture.                       |
+| `system-design`            | Concepts, diagrams, and practical system design cases.             |
 
-1.  **Practical Go Projects**: Directories like `clean-architecture-go` and `kafka-franz-go` contain hands-on implementations of specific technologies and architectural patterns. Each project is self-contained and demonstrates a concept I am currently learning.
+---
 
-2.  **System Design Notes**: The `system-design-resources` directory holds my consolidated notes on various theoretical topics, from caching and load balancing to database scaling. These notes serve as the theoretical foundation for the practical projects.
+## 🎯 Learning Objectives
 
-Feel free to explore each directory to see my progress in specific areas of backend development and system design.
+This repository is intended to help you understand:
+
+* Backend architecture fundamentals
+* How to design scalable backend systems
+* Concurrency, parallelism, and distributed processes
+* Event-driven systems using Kafka
+* REST API, authentication, caching, and observability
+* Best practices, abstraction, testing, and maintainability
+
+---
+
+## 🧰 Tech Stack Overview
+
+| Category          | Tools                                  |
+| ----------------- | -------------------------------------- |
+| Backend           | Go, .NET                               |
+| Messaging         | Apache Kafka                           |
+| Storage / Caching | Redis, ElasticSearch                   |
+| Deployment        | Docker                                 |
+| Architecture      | Clean Architecture, DDD, Microservices |
+
+---
+
+## 🚀 Getting Started
+
+```bash
+git clone https://github.com/williamtheodoruswijaya/system-design.git
+cd system-design
+```
+
+Each folder contains its own documentation or usage guide.
+
+---
+
+## 📌 Status
+
+This repository represents my personal learning progress in software architecture, system design, and backend engineering. The content may evolve over time as I continue exploring new concepts, refactoring existing code, and improving implementations.
+
+Updates may occur gradually — depending on what I'm currently learning, experimenting with, or applying in real projects.
+
+---
+
+## 🤝 Contributing
+
+Suggestions, discussions, and contributions are welcome.
+Feel free to open an Issue or Pull Request.
+
+---
+
+## 👤 Author
+
+**William Theodorus Wijaya**
