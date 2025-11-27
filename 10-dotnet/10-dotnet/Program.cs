@@ -9,12 +9,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => // Configure Swagger biar bisa Authorization pake JWT Token (COPAS AJA INI TEMPLATE BIAR SWAGGER BISA PAKE JWT AUTHORIZATION)
@@ -58,10 +60,11 @@ builder.Services.AddDbContext<DotNetAuthDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DotNetAuthConnectionString"));
 });
 
-// Dependency Injection for Repositories (biar bisa diakses semua class/controller)
+// Dependency Injection for Repositories (biar bisa diakses semua class/controller) <Interface, Implementation>
 builder.Services.AddScoped<IRegionRepository, RegionRepository>();
 builder.Services.AddScoped<IWalkRepository, WalkRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
 
 // Dependency Injection buat AutoMapper Services
 builder.Services.AddAutoMapper(config => {}, typeof(AutoMapperProfiles).Assembly);
@@ -110,6 +113,12 @@ app.UseHttpsRedirection();
 app.UseAuthentication(); // Ini biar JWT Authenticationnya jalan (sebelum authorization)
 
 app.UseAuthorization();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+    RequestPath = "/Images"
+}); // biar bisa akses file (.png, .css, dkk) di folder wwwroot
 
 app.MapControllers();
 

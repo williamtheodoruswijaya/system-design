@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _10_dotnet.Data;
 
@@ -11,9 +12,11 @@ using _10_dotnet.Data;
 namespace _10_dotnet.Migrations
 {
     [DbContext(typeof(DotNetDbContext))]
-    partial class DotNetDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251127084902_Adding Images Table")]
+    partial class AddingImagesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
