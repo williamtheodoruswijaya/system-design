@@ -1,0 +1,307 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Service.Api\\11-clean-architecture-dotnet.Service.Api.csproj": {}
+  },
+  "projects": {
+    "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Application\\11-clean-architecture-dotnet.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Application\\11-clean-architecture-dotnet.Application.csproj",
+        "projectName": "11-clean-architecture-dotnet.Application",
+        "projectPath": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Application\\11-clean-architecture-dotnet.Application.csproj",
+        "packagesPath": "C:\\Users\\Hendra Wijaya\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Hendra Wijaya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Domain\\11-clean-architecture-dotnet.Domain.csproj": {
+                "projectPath": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Domain\\11-clean-architecture-dotnet.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Domain\\11-clean-architecture-dotnet.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Domain\\11-clean-architecture-dotnet.Domain.csproj",
+        "projectName": "11-clean-architecture-dotnet.Domain",
+        "projectPath": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Domain\\11-clean-architecture-dotnet.Domain.csproj",
+        "packagesPath": "C:\\Users\\Hendra Wijaya\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Hendra Wijaya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Infra.Data\\11-clean-architecture-dotnet.Infra.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Infra.Data\\11-clean-architecture-dotnet.Infra.Data.csproj",
+        "projectName": "11-clean-architecture-dotnet.Infra.Data",
+        "projectPath": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Infra.Data\\11-clean-architecture-dotnet.Infra.Data.csproj",
+        "packagesPath": "C:\\Users\\Hendra Wijaya\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Infra.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Hendra Wijaya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Domain\\11-clean-architecture-dotnet.Domain.csproj": {
+                "projectPath": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Domain\\11-clean-architecture-dotnet.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.22, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.22, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Service.Api\\11-clean-architecture-dotnet.Service.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Service.Api\\11-clean-architecture-dotnet.Service.Api.csproj",
+        "projectName": "11-clean-architecture-dotnet.Service.Api",
+        "projectPath": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Service.Api\\11-clean-architecture-dotnet.Service.Api.csproj",
+        "packagesPath": "C:\\Users\\Hendra Wijaya\\.nuget\\packages\\",
+        "outputPath": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Service.Api\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Hendra Wijaya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Application\\11-clean-architecture-dotnet.Application.csproj": {
+                "projectPath": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Application\\11-clean-architecture-dotnet.Application.csproj"
+              },
+              "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Infra.Data\\11-clean-architecture-dotnet.Infra.Data.csproj": {
+                "projectPath": "D:\\Project\\system-design\\11-clean-architecture-dotnet\\11-clean-architecture-dotnet.Infra.Data\\11-clean-architecture-dotnet.Infra.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.22, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
