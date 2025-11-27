@@ -1,0 +1,40 @@
+2025-11-27 22:32:30.337 +07:00 [INF] User profile is available. Using 'C:\Users\Hendra Wijaya\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-11-27 22:32:30.599 +07:00 [INF] Now listening on: https://localhost:7288
+2025-11-27 22:32:30.600 +07:00 [INF] Now listening on: http://localhost:5143
+2025-11-27 22:32:30.651 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-11-27 22:32:30.652 +07:00 [INF] Hosting environment: Development
+2025-11-27 22:32:30.654 +07:00 [INF] Content root path: D:\Project\system-design\10-dotnet\10-dotnet
+2025-11-27 22:32:32.794 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/swagger - null null
+2025-11-27 22:32:32.970 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/swagger - 301 0 null 181.0975ms
+2025-11-27 22:32:32.989 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/swagger/index.html - null null
+2025-11-27 22:32:33.088 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/swagger/index.html - 200 null text/html;charset=utf-8 98.5481ms
+2025-11-27 22:32:33.129 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/_framework/aspnetcore-browser-refresh.js - null null
+2025-11-27 22:32:33.136 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/_vs/browserLink - null null
+2025-11-27 22:32:33.150 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/_framework/aspnetcore-browser-refresh.js - 200 16503 application/javascript; charset=utf-8 21.8688ms
+2025-11-27 22:32:33.200 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/_vs/browserLink - 200 null text/javascript; charset=UTF-8 64.1135ms
+2025-11-27 22:32:33.321 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/swagger/v1/swagger.json - null null
+2025-11-27 22:32:33.346 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 25.205ms
+2025-11-27 22:32:44.408 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/api/Walks?pageNumber=1&pageSize=1 - null null
+2025-11-27 22:32:44.473 +07:00 [INF] Executing endpoint '_10_dotnet.Controllers.WalksController.GetAll (10-dotnet)'
+2025-11-27 22:32:44.499 +07:00 [INF] Route matched with {action = "GetAll", controller = "Walks"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll(System.String, System.String, System.String, System.Nullable`1[System.Boolean], System.Nullable`1[System.Int32], System.Nullable`1[System.Int32]) on controller _10_dotnet.Controllers.WalksController (10-dotnet).
+2025-11-27 22:32:44.624 +07:00 [WRN] You do not have a valid license key for the Lucky Penny software AutoMapper. This is allowed for development and testing scenarios. If you are running in production you are required to have a licensed version. Please visit https://luckypennysoftware.com to obtain a valid license.
+2025-11-27 22:32:45.093 +07:00 [INF] Executed action _10_dotnet.Controllers.WalksController.GetAll (10-dotnet) in 588.1855ms
+2025-11-27 22:32:45.097 +07:00 [INF] Executed endpoint '_10_dotnet.Controllers.WalksController.GetAll (10-dotnet)'
+2025-11-27 22:32:45.114 +07:00 [ERR] bdd8b837-97b8-4f36-bf54-7b3d74eb343b : This is a new exception
+System.Exception: This is a new exception
+   at _10_dotnet.Controllers.WalksController.GetAll(String filterOn, String filterQuery, String sortBy, Nullable`1 isAscending, Nullable`1 pageNumber, Nullable`1 pageSize) in D:\Project\system-design\10-dotnet\10-dotnet\Controllers\WalksController.cs:line 65
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at _10_dotnet.Middlewares.ExceptionHandlerMiddleware.InvokeAsync(HttpContext httpContext) in D:\Project\system-design\10-dotnet\10-dotnet\Middlewares\ExceptionHandlerMiddleware.cs:line 22
+2025-11-27 22:32:45.182 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/api/Walks?pageNumber=1&pageSize=1 - 500 null application/json; charset=utf-8 773.8963ms

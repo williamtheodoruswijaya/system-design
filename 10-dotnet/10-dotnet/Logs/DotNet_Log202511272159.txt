@@ -1,0 +1,27 @@
+2025-11-27 21:59:08.890 +07:00 [INF] User profile is available. Using 'C:\Users\Hendra Wijaya\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-11-27 21:59:09.121 +07:00 [INF] Now listening on: https://localhost:7288
+2025-11-27 21:59:09.123 +07:00 [INF] Now listening on: http://localhost:5143
+2025-11-27 21:59:09.167 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-11-27 21:59:09.169 +07:00 [INF] Hosting environment: Development
+2025-11-27 21:59:09.170 +07:00 [INF] Content root path: D:\Project\system-design\10-dotnet\10-dotnet
+2025-11-27 21:59:10.160 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/swagger - null null
+2025-11-27 21:59:10.338 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/swagger - 301 0 null 187.9791ms
+2025-11-27 21:59:10.343 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/swagger/index.html - null null
+2025-11-27 21:59:10.423 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/swagger/index.html - 200 null text/html;charset=utf-8 80.3788ms
+2025-11-27 21:59:10.450 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/_vs/browserLink - null null
+2025-11-27 21:59:10.450 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/_framework/aspnetcore-browser-refresh.js - null null
+2025-11-27 21:59:10.469 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/_framework/aspnetcore-browser-refresh.js - 200 16503 application/javascript; charset=utf-8 18.5042ms
+2025-11-27 21:59:10.496 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/_vs/browserLink - 200 null text/javascript; charset=UTF-8 45.6518ms
+2025-11-27 21:59:10.553 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/swagger/swagger-ui.css - null null
+2025-11-27 21:59:10.573 +07:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2025-11-27 21:59:10.576 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/swagger/swagger-ui.css - 200 152034 text/css 23.327ms
+2025-11-27 21:59:10.750 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/swagger/favicon-16x16.png - null null
+2025-11-27 21:59:10.754 +07:00 [INF] Sending file. Request path: '/favicon-16x16.png'. Physical path: 'N/A'
+2025-11-27 21:59:10.756 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/swagger/favicon-16x16.png - 200 665 image/png 6.1502ms
+2025-11-27 21:59:10.814 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/swagger/v1/swagger.json - null null
+2025-11-27 21:59:10.837 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 23.1864ms
+2025-11-27 21:59:14.035 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/api/Regions - null null
+2025-11-27 21:59:14.109 +07:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Reader|Writer)
+2025-11-27 21:59:14.116 +07:00 [INF] AuthenticationScheme: Bearer was challenged.
+2025-11-27 21:59:14.117 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/api/Regions - 401 0 null 83.0023ms

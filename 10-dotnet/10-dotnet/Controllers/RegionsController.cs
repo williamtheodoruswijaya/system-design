@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace _10_dotnet.Controllers
 {
@@ -17,10 +18,15 @@ namespace _10_dotnet.Controllers
     public class RegionsController : ControllerBase
     {
         // Ini tempat buat Dependency Injection-nya nanti kalau kita butuh service, repository, dll. (termasuk DbContext)
+        private readonly ILogger<RegionsController> logger;
         private readonly IRegionRepository regionRepository;
         private readonly IMapper mapper;
-        public RegionsController(IRegionRepository regionRepository, IMapper mapper) // DbContext-nya di-inject via constructor
+        public RegionsController(
+            ILogger<RegionsController> logger,
+            IRegionRepository regionRepository, 
+            IMapper mapper) // DbContext-nya di-inject via constructor
         {
+            this.logger = logger;
             this.regionRepository = regionRepository;
             this.mapper = mapper;
         }
@@ -31,6 +37,11 @@ namespace _10_dotnet.Controllers
                                                     // Kalau async, return type-nya harus di dalam Task<T>
                                                     // Function-function DbContext juga tinggal kasih keyword "await" dan cari yang versi Async-nya.
         {
+            // add logging
+            logger.LogInformation("GetAll Regions Action Method was invoked");
+            //logger.LogWarning("This is a warning log");
+            //logger.LogError("This is an error log");
+
             // step 1: get data from database - Domain Models
             var regions = await regionRepository.GetAllAsync();
 
@@ -47,6 +58,8 @@ namespace _10_dotnet.Controllers
             //    });
             //}
             var regionsDto = mapper.Map<List<RegionDto>>(regions);
+
+            logger.LogInformation($"Finished GetAllRegions request with data: {JsonSerializer.Serialize(regions)}");
 
             // step 3: return DTOs to client
             return Ok(regionsDto);                  // Ok() itu method dari ControllerBase yang nge-wrap response HTTP dengan status code 200

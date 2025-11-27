@@ -152,3 +152,12 @@ D:\Project\system-design\10-dotnet\10-dotnet\bin\Debug\net8.0\Microsoft.AspNetCo
 D:\Project\system-design\10-dotnet\10-dotnet\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
 D:\Project\system-design\10-dotnet\10-dotnet\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 D:\Project\system-design\10-dotnet\10-dotnet\bin\Debug\net8.0\System.ClientModel.dll
+D:\Project\system-design\10-dotnet\10-dotnet\bin\Debug\net8.0\Serilog.dll
+D:\Project\system-design\10-dotnet\10-dotnet\bin\Debug\net8.0\Serilog.AspNetCore.dll
+D:\Project\system-design\10-dotnet\10-dotnet\bin\Debug\net8.0\Serilog.Extensions.Hosting.dll
+D:\Project\system-design\10-dotnet\10-dotnet\bin\Debug\net8.0\Serilog.Extensions.Logging.dll
+D:\Project\system-design\10-dotnet\10-dotnet\bin\Debug\net8.0\Serilog.Formatting.Compact.dll
+D:\Project\system-design\10-dotnet\10-dotnet\bin\Debug\net8.0\Serilog.Settings.Configuration.dll
+D:\Project\system-design\10-dotnet\10-dotnet\bin\Debug\net8.0\Serilog.Sinks.Console.dll
+D:\Project\system-design\10-dotnet\10-dotnet\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
+D:\Project\system-design\10-dotnet\10-dotnet\bin\Debug\net8.0\Serilog.Sinks.File.dll

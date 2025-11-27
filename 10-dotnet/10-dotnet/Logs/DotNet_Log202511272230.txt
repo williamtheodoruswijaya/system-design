@@ -1,0 +1,21 @@
+2025-11-27 22:30:27.329 +07:00 [INF] User profile is available. Using 'C:\Users\Hendra Wijaya\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-11-27 22:30:27.619 +07:00 [INF] Now listening on: https://localhost:7288
+2025-11-27 22:30:27.621 +07:00 [INF] Now listening on: http://localhost:5143
+2025-11-27 22:30:27.774 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-11-27 22:30:27.776 +07:00 [INF] Hosting environment: Development
+2025-11-27 22:30:27.777 +07:00 [INF] Content root path: D:\Project\system-design\10-dotnet\10-dotnet
+2025-11-27 22:30:28.536 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/swagger - null null
+2025-11-27 22:30:28.737 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/swagger - 301 0 null 215.9859ms
+2025-11-27 22:30:28.755 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/swagger/index.html - null null
+2025-11-27 22:30:28.850 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/swagger/index.html - 200 null text/html;charset=utf-8 94.9619ms
+2025-11-27 22:30:28.878 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/_vs/browserLink - null null
+2025-11-27 22:30:28.879 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/_framework/aspnetcore-browser-refresh.js - null null
+2025-11-27 22:30:28.908 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/_framework/aspnetcore-browser-refresh.js - 200 16503 application/javascript; charset=utf-8 29.1185ms
+2025-11-27 22:30:28.964 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/_vs/browserLink - 200 null text/javascript; charset=UTF-8 85.289ms
+2025-11-27 22:30:29.050 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/swagger/v1/swagger.json - null null
+2025-11-27 22:30:29.081 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 30.6052ms
+2025-11-27 22:30:38.879 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/api/Regions - null null
+2025-11-27 22:30:40.079 +07:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Reader|Writer)
+2025-11-27 22:30:40.084 +07:00 [INF] AuthenticationScheme: Bearer was challenged.
+2025-11-27 22:30:40.086 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/api/Regions - 401 0 null 1207.1055ms

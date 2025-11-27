@@ -61,6 +61,9 @@ namespace _10_dotnet.Controllers
             [FromQuery] int? pageSize
             ) // basically jadinya /api/walks?filterOn=Name&filterQuery=Track&sortBy=Name&isAscending=true&pageNumber=1&pageSize=10
         {
+            // to mimic an exception to test GlobalExceptionHandler middleware, uncomment this:
+            //throw new Exception("This is a new exception");
+
             // step 1: get domain models from database
             var walkDomainModels = await walkRepository.GetAllAsync(
                 filterOn, 

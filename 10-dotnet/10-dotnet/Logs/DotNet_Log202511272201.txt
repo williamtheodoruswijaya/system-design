@@ -1,0 +1,5 @@
+2025-11-27 22:01:58.128 +07:00 [INF] Request starting HTTP/2 GET https://localhost:7288/api/Regions - null null
+2025-11-27 22:01:58.150 +07:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Reader|Writer)
+2025-11-27 22:01:58.152 +07:00 [INF] AuthenticationScheme: Bearer was challenged.
+2025-11-27 22:01:58.154 +07:00 [INF] Request finished HTTP/2 GET https://localhost:7288/api/Regions - 401 0 null 28.0395ms
